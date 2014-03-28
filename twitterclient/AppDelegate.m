@@ -48,32 +48,47 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"AppDelegate:didFinishLaunching");
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    
-    self.loginViewController = [[LoginViewController alloc] init];
-    //self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
-    
-    self.window.rootViewController = self.loginViewController;
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    
-    // log all NSNotifications
-   /* NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserverForName:nil
-                        object:nil
-                         queue:nil
-                    usingBlock:^(NSNotification *notification)
-    {
-        NSLog(@"%@", notification.name);
-    }];*/
+
+    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"User_currentUser"];
+    if (dictionary) {
+        NSLog(@"User:currentUser Loaded:%@ ", dictionary);
+    }
+
+    [self routeUserFlow];
     
     [self subscribeToNotifications];
     
     return YES;
+}
+
+- (void) routeUserFlow {
+    NSLog(@"routeUserFlow");
+    User *user = [User currentUser];
+ 
+    NSLog(@"routeUserFlow: Current user %@",user.description);
+    // if user is logged out flow to login view
+    if (!user) {
+        NSLog(@"setting to loginViewController");
+        if (!self.loginViewController) {
+            self.loginViewController = [[LoginViewController alloc] init];
+        }
+        self.window.rootViewController = self.loginViewController;
+    }
+    // if user is logged in, show the home view
+    else {
+        NSLog(@"setting to homeViewController");
+
+        if (!self.homeViewController) {
+            self.homeViewController = [[HomeViewController alloc] init];
+        }
+        self.window.rootViewController = self.homeViewController;
+    }
 }
 
 - (void) subscribeToNotifications {
@@ -83,14 +98,8 @@
                  object:nil
                  queue:nil
                  usingBlock:^(NSNotification *notification) {
-                     
-                     NSLog(@"User logged in");
-                     
-                     if (!self.homeViewController) {
-                         self.homeViewController = [[HomeViewController alloc] init];
-                     }
-                     self.window.rootViewController = self.homeViewController;
-                     
+                     NSLog(@"AppDelegate: subscribeToNotifications: User logged in");
+                     [self routeUserFlow];
                  }
     ];
     [[NSNotificationCenter defaultCenter]
@@ -98,11 +107,8 @@
         object:nil
         queue:nil
         usingBlock:^(NSNotification *notification) {
-            NSLog(@"User logged out");
-            if (!self.loginViewController) {
-                self.loginViewController = [[LoginViewController alloc] init];
-            }
-            self.window.rootViewController = self.loginViewController;
+            NSLog(@"AppDelegate: subscribeToNotifications: User logged out");
+            [self routeUserFlow];
         }
      ];
     
@@ -133,10 +139,11 @@
                                         
                                         [client verifyCredentialsWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                                             
-                                            NSLog(@"success %@",responseObject);
+                                            //NSLog(@"success %@",responseObject);
 
                                             // send a notification that we have a new user logged in with all it's data payload
                                             User *user = [[User alloc] initWithDictionary:responseObject];
+                                            NSLog(@"twitter client verified creditentials with user: %@",user.description);
                                             [User setCurrentUser:user];
                                             
                                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

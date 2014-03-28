@@ -13,6 +13,9 @@
 extern NSString *const UserDidLoginNotification;
 extern NSString *const UserDidLogoutNotification;
 
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *userId;
+
 + (User *)currentUser;
 + (void)setCurrentUser:(User *)user;
 
