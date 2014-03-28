@@ -7,11 +7,15 @@
 //
 
 #import "HomeViewController.h"
+#import "TwitterClient.h"
 #import "User.h"
+#import "TweetList.h"
 
 @interface HomeViewController ()
 
 - (IBAction)onSignOutButton:(id)sender;
+
+@property (nonatomic,strong) TweetList *tweetList;
 
 @end
 
@@ -30,6 +34,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[TwitterClient instance] homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"HomeViewController:viewDidLoad got timeline");
+        self.tweetList = [[TweetList alloc] initFromDictionary:responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"HomeViewController:viewDidLoad could not get timeline");
+    }];
 }
 
 - (void)didReceiveMemoryWarning

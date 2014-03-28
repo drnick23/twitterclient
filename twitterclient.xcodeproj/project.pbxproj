@@ -25,6 +25,8 @@
 		0197C0E818E5BA1700434592 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0E618E5BA1700434592 /* HomeViewController.m */; };
 		0197C0E918E5BA1700434592 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0E718E5BA1700434592 /* HomeViewController.xib */; };
 		0197C0EC18E5BE0C00434592 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EB18E5BE0C00434592 /* User.m */; };
+		0197C0EF18E5E97100434592 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EE18E5E97100434592 /* Tweet.m */; };
+		0197C0F218E5EB6C00434592 /* TweetList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0F118E5EB6C00434592 /* TweetList.m */; };
 		A1739129AFCF476EA4ADF195 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 069295D445B5415995AAEAC0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +67,10 @@
 		0197C0E718E5BA1700434592 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeViewController.xib; path = Controllers/HomeViewController.xib; sourceTree = "<group>"; };
 		0197C0EA18E5BE0C00434592 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Models/User.h; sourceTree = "<group>"; };
 		0197C0EB18E5BE0C00434592 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Models/User.m; sourceTree = "<group>"; };
+		0197C0ED18E5E97100434592 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tweet.h; path = Models/Tweet.h; sourceTree = "<group>"; };
+		0197C0EE18E5E97100434592 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tweet.m; path = Models/Tweet.m; sourceTree = "<group>"; };
+		0197C0F018E5EB6C00434592 /* TweetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetList.h; path = Models/TweetList.h; sourceTree = "<group>"; };
+		0197C0F118E5EB6C00434592 /* TweetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetList.m; path = Models/TweetList.m; sourceTree = "<group>"; };
 		069295D445B5415995AAEAC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A94549EF5146B985213EF0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +202,10 @@
 			children = (
 				0197C0EA18E5BE0C00434592 /* User.h */,
 				0197C0EB18E5BE0C00434592 /* User.m */,
+				0197C0ED18E5E97100434592 /* Tweet.h */,
+				0197C0EE18E5E97100434592 /* Tweet.m */,
+				0197C0F018E5EB6C00434592 /* TweetList.h */,
+				0197C0F118E5EB6C00434592 /* TweetList.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -335,6 +345,8 @@
 				0197C0D618E4941500434592 /* LoginViewController.m in Sources */,
 				0197C0EC18E5BE0C00434592 /* User.m in Sources */,
 				0197C0B118E48EE200434592 /* AppDelegate.m in Sources */,
+				0197C0F218E5EB6C00434592 /* TweetList.m in Sources */,
+				0197C0EF18E5E97100434592 /* Tweet.m in Sources */,
 				0197C0D218E48FBD00434592 /* TwitterClient.m in Sources */,
 				0197C0E818E5BA1700434592 /* HomeViewController.m in Sources */,
 				0197C0AD18E48EE200434592 /* main.m in Sources */,
