@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  TweetHomeViewCell.h
 //  twitterclient
 //
 //  Created by Nicolas Halper on 3/28/14.
@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Tweet.h"
 
-@interface HomeViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface TweetHomeViewCell : UITableViewCell
+
+@property (nonatomic,strong) Tweet *tweet;
 
 @end

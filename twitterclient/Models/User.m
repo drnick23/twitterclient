@@ -61,6 +61,8 @@ static User *currentUser = nil;
         if (dictionary[@"id"]) {
             self.name = dictionary[@"name"];
             self.userId = dictionary[@"id"];
+            self.screenName = dictionary[@"screen_name"];
+            self.profileImageURL = [NSURL URLWithString:dictionary[@"profile_image_url"]];
             //NSLog(@"User:initWithDictionary: %@ [%@]",self.name,self.userId);
         } else {
             self = nil;
@@ -71,8 +73,14 @@ static User *currentUser = nil;
 }
 
 - (void) persistUserSession {
-    NSLog(@"User:persistUserSession adding user from persistent storage");
-    NSDictionary *saveUser = @{@"name":self.name, @"id":self.userId};
+    NSDictionary *saveUser = @{
+                               @"id":self.userId,
+                               @"name":self.name,
+                               @"screen_name":self.screenName,
+                               @"profile_image_url":[self.profileImageURL absoluteString]
+                               };
+    NSLog(@"User:persistUserSession adding user TO persistent storage %@",saveUser);
+    
     [[NSUserDefaults standardUserDefaults] setObject:saveUser forKey:UserNSUserDefaultsSaveKey];
 
  

@@ -10,10 +10,14 @@
 #import "TwitterClient.h"
 #import "User.h"
 #import "TweetList.h"
+#import "TweetHomeViewCell.h"
+
 
 @interface HomeViewController ()
 
 - (IBAction)onSignOutButton:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong) TweetList *tweetList;
 
@@ -33,13 +37,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+        
+    // register our custom cells
+    UINib *tweetHomeViewCellNib = [UINib nibWithNibName:@"TweetHomeViewCell" bundle:nil];
+    [self.tableView registerNib:tweetHomeViewCellNib forCellReuseIdentifier:@"TweetHomeViewCell"];
+    
+    
     [[TwitterClient instance] homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"HomeViewController:viewDidLoad got timeline");
         self.tweetList = [[TweetList alloc] initFromDictionary:responseObject];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"HomeViewController:viewDidLoad could not get timeline");
     }];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.tweetList count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100.0f;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Tweet *tweet = [self.tweetList get:indexPath.row];
+    
+    TweetHomeViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell" forIndexPath:indexPath];
+    cell.tweet = tweet;
+    NSLog(@"dequeued tweet: %@",tweet.description);
+    
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning

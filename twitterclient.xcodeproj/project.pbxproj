@@ -27,6 +27,8 @@
 		0197C0EC18E5BE0C00434592 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EB18E5BE0C00434592 /* User.m */; };
 		0197C0EF18E5E97100434592 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EE18E5E97100434592 /* Tweet.m */; };
 		0197C0F218E5EB6C00434592 /* TweetList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0F118E5EB6C00434592 /* TweetList.m */; };
+		0197C0FC18E5F4F600434592 /* TweetHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0FA18E5F4F600434592 /* TweetHomeViewCell.m */; };
+		0197C0FD18E5F4F600434592 /* TweetHomeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0FB18E5F4F600434592 /* TweetHomeViewCell.xib */; };
 		A1739129AFCF476EA4ADF195 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 069295D445B5415995AAEAC0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,9 @@
 		0197C0EE18E5E97100434592 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tweet.m; path = Models/Tweet.m; sourceTree = "<group>"; };
 		0197C0F018E5EB6C00434592 /* TweetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetList.h; path = Models/TweetList.h; sourceTree = "<group>"; };
 		0197C0F118E5EB6C00434592 /* TweetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetList.m; path = Models/TweetList.m; sourceTree = "<group>"; };
+		0197C0F918E5F4F600434592 /* TweetHomeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetHomeViewCell.h; path = Views/TweetHomeViewCell.h; sourceTree = "<group>"; };
+		0197C0FA18E5F4F600434592 /* TweetHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetHomeViewCell.m; path = Views/TweetHomeViewCell.m; sourceTree = "<group>"; };
+		0197C0FB18E5F4F600434592 /* TweetHomeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetHomeViewCell.xib; path = Views/TweetHomeViewCell.xib; sourceTree = "<group>"; };
 		069295D445B5415995AAEAC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A94549EF5146B985213EF0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +140,7 @@
 		0197C0A618E48EE200434592 /* twitterclient */ = {
 			isa = PBXGroup;
 			children = (
+				0197C0F318E5F09F00434592 /* Views */,
 				0197C0CF18E48F6400434592 /* API */,
 				0197C0D818E4952600434592 /* Controllers */,
 				0197C0E118E4A27800434592 /* Models */,
@@ -208,6 +214,16 @@
 				0197C0F118E5EB6C00434592 /* TweetList.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0197C0F318E5F09F00434592 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0197C0F918E5F4F600434592 /* TweetHomeViewCell.h */,
+				0197C0FA18E5F4F600434592 /* TweetHomeViewCell.m */,
+				0197C0FB18E5F4F600434592 /* TweetHomeViewCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +307,7 @@
 				0197C0E918E5BA1700434592 /* HomeViewController.xib in Resources */,
 				0197C0B318E48EE200434592 /* Images.xcassets in Resources */,
 				0197C0D718E4941500434592 /* LoginViewController.xib in Resources */,
+				0197C0FD18E5F4F600434592 /* TweetHomeViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +362,7 @@
 				0197C0D618E4941500434592 /* LoginViewController.m in Sources */,
 				0197C0EC18E5BE0C00434592 /* User.m in Sources */,
 				0197C0B118E48EE200434592 /* AppDelegate.m in Sources */,
+				0197C0FC18E5F4F600434592 /* TweetHomeViewCell.m in Sources */,
 				0197C0F218E5EB6C00434592 /* TweetList.m in Sources */,
 				0197C0EF18E5E97100434592 /* Tweet.m in Sources */,
 				0197C0D218E48FBD00434592 /* TwitterClient.m in Sources */,
