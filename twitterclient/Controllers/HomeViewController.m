@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "TweetDetailViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
 #import "TweetList.h"
@@ -73,6 +74,23 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    // Display Alert Message
+    TweetHomeViewCell *cell = (TweetHomeViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"You selected %@",cell.tweet.text);
+    
+    TweetDetailViewController *tweetDetailViewController = [[TweetDetailViewController alloc] initWithTweet:cell.tweet];
+    
+    if (!self.navigationController) {
+        NSLog(@"TODO: no navigation controller here");
+    }
+    [self.navigationController pushViewController:tweetDetailViewController animated:YES];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
