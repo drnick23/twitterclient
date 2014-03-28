@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "HomeViewController.h"
 #import "TwitterClient.h"
+#import "User.h"
+
 
 @implementation NSURL (dictionaryFromQueryString)
 
@@ -32,18 +35,77 @@
 
 @end
 
+@interface AppDelegate()
+
+@property (nonatomic,strong) UINavigationController *navigationController;
+@property (nonatomic,strong) LoginViewController *loginViewController;
+@property (nonatomic,strong) HomeViewController *homeViewController;
+
+@end
+
 @implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.window.rootViewController = [[LoginViewController alloc] init];
+    
+    self.loginViewController = [[LoginViewController alloc] init];
+    //self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
+    
+    self.window.rootViewController = self.loginViewController;
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+    // log all NSNotifications
+   /* NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:nil
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+    {
+        NSLog(@"%@", notification.name);
+    }];*/
+    
+    [self subscribeToNotifications];
+    
     return YES;
+}
+
+- (void) subscribeToNotifications {
+    NSLog(@"Subscribing app delegate to notifications");
+    [[NSNotificationCenter defaultCenter]
+                 addObserverForName:UserDidLoginNotification
+                 object:nil
+                 queue:nil
+                 usingBlock:^(NSNotification *notification) {
+                     
+                     NSLog(@"User logged in");
+                     
+                     if (!self.homeViewController) {
+                         self.homeViewController = [[HomeViewController alloc] init];
+                     }
+                     self.window.rootViewController = self.homeViewController;
+                     
+                 }
+    ];
+    [[NSNotificationCenter defaultCenter]
+        addObserverForName:UserDidLogoutNotification
+        object:nil
+        queue:nil
+        usingBlock:^(NSNotification *notification) {
+            NSLog(@"User logged out");
+            if (!self.loginViewController) {
+                self.loginViewController = [[LoginViewController alloc] init];
+            }
+            self.window.rootViewController = self.loginViewController;
+        }
+     ];
+    
 }
 
 
@@ -54,10 +116,13 @@
 {
     if ([url.scheme isEqualToString:@"drnick23twitter"])
     {
+        
+        // code flow for a newly authenticated user
         if ([url.host isEqualToString:@"oauth"])
         {
             NSDictionary *parameters = [url dictionaryFromQueryString];
             if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
+                
                 TwitterClient *client = [TwitterClient instance];
                 [client fetchAccessTokenWithPath:@"/oauth/access_token"
                                            method:@"POST"
@@ -66,8 +131,14 @@
                                         NSLog(@"Got accessToken %@",accessToken);
                                         [client.requestSerializer saveAccessToken:accessToken];
                                         
-                                        [client homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                            NSLog(@"sucess %@",responseObject);
+                                        [client verifyCredentialsWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                            
+                                            NSLog(@"success %@",responseObject);
+
+                                            // send a notification that we have a new user logged in with all it's data payload
+                                            User *user = [[User alloc] initWithDictionary:responseObject];
+                                            [User setCurrentUser:user];
+                                            
                                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                             NSLog(@"response failure %@",error);
                                         }];

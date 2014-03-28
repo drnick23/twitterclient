@@ -22,9 +22,9 @@
 		0197C0D218E48FBD00434592 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0D118E48FBD00434592 /* TwitterClient.m */; };
 		0197C0D618E4941500434592 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0D418E4941500434592 /* LoginViewController.m */; };
 		0197C0D718E4941500434592 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0D518E4941500434592 /* LoginViewController.xib */; };
-		0197C0DC18E4A1DF00434592 /* TweetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0DA18E4A1DF00434592 /* TweetsViewController.m */; };
-		0197C0DD18E4A1DF00434592 /* TweetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0DB18E4A1DF00434592 /* TweetsViewController.xib */; };
-		0197C0E018E4A27300434592 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0DF18E4A27300434592 /* User.m */; };
+		0197C0E818E5BA1700434592 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0E618E5BA1700434592 /* HomeViewController.m */; };
+		0197C0E918E5BA1700434592 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0E718E5BA1700434592 /* HomeViewController.xib */; };
+		0197C0EC18E5BE0C00434592 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EB18E5BE0C00434592 /* User.m */; };
 		A1739129AFCF476EA4ADF195 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 069295D445B5415995AAEAC0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -60,11 +60,11 @@
 		0197C0D318E4941500434592 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Controllers/LoginViewController.h; sourceTree = "<group>"; };
 		0197C0D418E4941500434592 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Controllers/LoginViewController.m; sourceTree = "<group>"; };
 		0197C0D518E4941500434592 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Controllers/LoginViewController.xib; sourceTree = "<group>"; };
-		0197C0D918E4A1DF00434592 /* TweetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsViewController.h; sourceTree = "<group>"; };
-		0197C0DA18E4A1DF00434592 /* TweetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsViewController.m; sourceTree = "<group>"; };
-		0197C0DB18E4A1DF00434592 /* TweetsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsViewController.xib; sourceTree = "<group>"; };
-		0197C0DE18E4A27300434592 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		0197C0DF18E4A27300434592 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		0197C0E518E5BA1700434592 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Controllers/HomeViewController.h; sourceTree = "<group>"; };
+		0197C0E618E5BA1700434592 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = Controllers/HomeViewController.m; sourceTree = "<group>"; };
+		0197C0E718E5BA1700434592 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeViewController.xib; path = Controllers/HomeViewController.xib; sourceTree = "<group>"; };
+		0197C0EA18E5BE0C00434592 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Models/User.h; sourceTree = "<group>"; };
+		0197C0EB18E5BE0C00434592 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Models/User.m; sourceTree = "<group>"; };
 		069295D445B5415995AAEAC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A94549EF5146B985213EF0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,9 +181,9 @@
 		0197C0D818E4952600434592 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0197C0D918E4A1DF00434592 /* TweetsViewController.h */,
-				0197C0DA18E4A1DF00434592 /* TweetsViewController.m */,
-				0197C0DB18E4A1DF00434592 /* TweetsViewController.xib */,
+				0197C0E518E5BA1700434592 /* HomeViewController.h */,
+				0197C0E618E5BA1700434592 /* HomeViewController.m */,
+				0197C0E718E5BA1700434592 /* HomeViewController.xib */,
 				0197C0D318E4941500434592 /* LoginViewController.h */,
 				0197C0D418E4941500434592 /* LoginViewController.m */,
 				0197C0D518E4941500434592 /* LoginViewController.xib */,
@@ -194,8 +194,8 @@
 		0197C0E118E4A27800434592 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0197C0DE18E4A27300434592 /* User.h */,
-				0197C0DF18E4A27300434592 /* User.m */,
+				0197C0EA18E5BE0C00434592 /* User.h */,
+				0197C0EB18E5BE0C00434592 /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -277,8 +277,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0197C0DD18E4A1DF00434592 /* TweetsViewController.xib in Resources */,
 				0197C0AB18E48EE200434592 /* InfoPlist.strings in Resources */,
+				0197C0E918E5BA1700434592 /* HomeViewController.xib in Resources */,
 				0197C0B318E48EE200434592 /* Images.xcassets in Resources */,
 				0197C0D718E4941500434592 /* LoginViewController.xib in Resources */,
 			);
@@ -333,10 +333,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0197C0D618E4941500434592 /* LoginViewController.m in Sources */,
-				0197C0DC18E4A1DF00434592 /* TweetsViewController.m in Sources */,
-				0197C0E018E4A27300434592 /* User.m in Sources */,
+				0197C0EC18E5BE0C00434592 /* User.m in Sources */,
 				0197C0B118E48EE200434592 /* AppDelegate.m in Sources */,
 				0197C0D218E48FBD00434592 /* TwitterClient.m in Sources */,
+				0197C0E818E5BA1700434592 /* HomeViewController.m in Sources */,
 				0197C0AD18E48EE200434592 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

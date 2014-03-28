@@ -1,19 +1,21 @@
 //
-//  TweetsViewController.m
+//  HomeViewController.m
 //  twitterclient
 //
-//  Created by Nicolas Halper on 3/27/14.
+//  Created by Nicolas Halper on 3/28/14.
 //  Copyright (c) 2014 Nicolas Halper. All rights reserved.
 //
 
-#import "TweetsViewController.h"
+#import "HomeViewController.h"
+#import "User.h"
 
-@interface TweetsViewController ()
+@interface HomeViewController ()
 
-- (IBAction)onSignOut:(id)sender;
+- (IBAction)onSignOutButton:(id)sender;
+
 @end
 
-@implementation TweetsViewController
+@implementation HomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +38,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onSignOut:(id)sender {
+- (IBAction)onSignOutButton:(id)sender {
+    [User setCurrentUser:nil];
     NSLog(@"Sign out");
 }
 @end
