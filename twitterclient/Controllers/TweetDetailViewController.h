@@ -13,6 +13,4 @@
 
 @property (nonatomic,strong) Tweet *tweet;
 
-- (id)initWithTweet:(Tweet *)tweet;
-
 @end

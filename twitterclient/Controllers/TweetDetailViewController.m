@@ -16,6 +16,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *userScreenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
+- (IBAction)onReplyButton:(id)sender;
+- (IBAction)onRetweetButton:(id)sender;
+- (IBAction)onFavoriteButton:(id)sender;
+
+
 @end
 
 @implementation TweetDetailViewController
@@ -29,24 +38,25 @@
     return self;
 }
 
-- (id)initWithTweet:(Tweet *)tweet {
-    self = [super init];
-    if (self) {
-        self.tweet = tweet;
-        // link labels...
-        self.tweetTextLabel.text = tweet.text;
-        self.userNameLabel.text = tweet.user.name;
-        self.userScreenNameLabel.text = tweet.user.screenName;
-        [self.userProfileImageView setImageWithURL:tweet.user.profileImageURL];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self refresh];
+}
 
+- (void)setTweet:(Tweet *)tweet {
+    // link labels...
+    NSLog(@"set tweet...");
+    _tweet = tweet;
+    [self refresh];
+}
+
+- (void)refresh {
+    self.tweetTextLabel.text = self.tweet.text;
+    self.userNameLabel.text = self.tweet.user.name;
+    self.userScreenNameLabel.text = self.tweet.user.screenName;
+    [self.userProfileImageView setImageWithURL:self.tweet.user.profileImageURL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,4 +65,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)onReplyButton:(id)sender {
+    NSLog(@"onReplyButton");
+}
+
+- (IBAction)onRetweetButton:(id)sender {
+     NSLog(@"onRetweetButton");
+    self.retweetButton.highlighted = !self.retweetButton.highlighted;
+}
+
+- (IBAction)onFavoriteButton:(id)sender {
+    NSLog(@"onFavoriteButton");
+    self.favoriteButton.highlighted = !self.favoriteButton.highlighted;
+}
 @end

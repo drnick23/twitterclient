@@ -65,11 +65,15 @@
 }
 
 - (void)prependWithTweetList:(TweetList *)tweetList {
-    
     for (int i=[tweetList count]-1;i>=0;i--) {
         [self add:[tweetList get:i] atTop:YES];
     }
-    
+}
+
+- (void)appendWithTweetList:(TweetList *)tweetList {
+    for (int i=0;i<[tweetList count];i++) {
+        [self add:[tweetList get:i] atTop:NO];
+    }
 }
 
 

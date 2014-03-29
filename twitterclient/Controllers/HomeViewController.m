@@ -124,7 +124,6 @@
     
     TweetHomeViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell" forIndexPath:indexPath];
     cell.tweet = tweet;
-    NSLog(@"dequeued tweet: %@",tweet.description);
     
     return cell;
 }
@@ -136,7 +135,8 @@
     TweetHomeViewCell *cell = (TweetHomeViewCell *) [tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"You selected %@",cell.tweet.text);
     
-    TweetDetailViewController *tweetDetailViewController = [[TweetDetailViewController alloc] initWithTweet:cell.tweet];
+    TweetDetailViewController *tweetDetailViewController = [[TweetDetailViewController alloc] init];
+    tweetDetailViewController.tweet = cell.tweet;
     
     if (!self.navigationController) {
         NSLog(@"TODO: no navigation controller here");
