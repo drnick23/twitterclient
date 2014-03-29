@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "TweetDetailViewController.h"
+#import "TweetComposeViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
 #import "TweetList.h"
@@ -16,7 +17,6 @@
 
 @interface HomeViewController ()
 
-- (IBAction)onSignOutButton:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -42,7 +42,20 @@
     // Do any additional setup after loading the view from its nib.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-        
+    
+    
+    
+    // Configure the navigation bar
+    self.navigationItem.title = @"Home";
+    
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton:)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+                                   
+    /*UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"rightButton"] style:UIBarButtonItemStylePlain target:self action:@selector(onRightButton:)];
+    self.navigationItem.rightBarButtonItem = rightButton;*/
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Compose" style:UIBarButtonItemStyleBordered target:self action:@selector(onComposeButton:)];
+    self.navigationItem.rightBarButtonItem = rightButton;
+    
     // register our custom cells
     UINib *tweetHomeViewCellNib = [UINib nibWithNibName:@"TweetHomeViewCell" bundle:nil];
     [self.tableView registerNib:tweetHomeViewCellNib forCellReuseIdentifier:@"TweetHomeViewCell"];
@@ -98,8 +111,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onSignOutButton:(id)sender {
+- (void)onSignOutButton:(id)sender {
     [User setCurrentUser:nil];
+    NSLog(@"Sign out");
+}
+
+- (void)onComposeButton:(id)sender {
+    // pop up modal compose view controller
+    TweetComposeViewController *tweetComposeViewController = [[TweetComposeViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:nil];
     NSLog(@"Sign out");
 }
 @end

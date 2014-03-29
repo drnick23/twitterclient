@@ -85,12 +85,9 @@
         NSLog(@"setting to homeViewController");
         if (!self.homeViewController) {
             self.homeViewController = [[HomeViewController alloc] init];
-            
         }
-        self.window.rootViewController = self.homeViewController;
-        /*
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
-        self.window.rootViewController = navigationController;*/
+        self.window.rootViewController = navigationController;
     }
 }
 
