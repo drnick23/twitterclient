@@ -76,7 +76,7 @@
     }];*/
     
     [[TwitterClient instance] homeTimelineWithParameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"HomeViewController:viewDidLoad got timeline");
+        NSLog(@"HomeViewController:viewDidLoad got timeline %@",responseObject);
         self.tweetList = [[TweetList alloc] initWithDictionary:responseObject];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -8,6 +8,7 @@
 
 #import "TweetDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "TwitterClient.h"
 
 @interface TweetDetailViewController ()
 
@@ -15,6 +16,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userScreenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *retweetsCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favoritesCountLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *replyButton;
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
@@ -55,8 +61,13 @@
 - (void)refresh {
     self.tweetTextLabel.text = self.tweet.text;
     self.userNameLabel.text = self.tweet.user.name;
-    self.userScreenNameLabel.text = self.tweet.user.screenName;
+    self.userScreenNameLabel.text = [NSString stringWithFormat:@"@%@",self.tweet.user.screenName];
     [self.userProfileImageView setImageWithURL:self.tweet.user.profileImageURL];
+    self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d RETWEETS",self.tweet.retweetCount];
+    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d FAVORITES",self.tweet.favoriteCount];
+    self.createdAtLabel.text = [NSDateFormatter localizedStringFromDate:self.tweet.createdAt
+                                                              dateStyle:NSDateFormatterShortStyle
+                                                              timeStyle:NSDateFormatterShortStyle];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,5 +88,28 @@
 - (IBAction)onFavoriteButton:(id)sender {
     NSLog(@"onFavoriteButton");
     self.favoriteButton.highlighted = !self.favoriteButton.highlighted;
+    
+    if (!self.tweet.favorited) {
+        NSLog(@"favoriting...");
+        [[TwitterClient instance] favoriteStatus:self.tweet.tweetId success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"tweet after call with favorite: %@",responseObject);
+            self.tweet = [[Tweet alloc] initWithDictionary:responseObject];
+            [self refresh];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"onTweetButton: could not favorite %@",error);
+        }];
+    } else {
+        NSLog(@"unfavoriting...");
+        [[TwitterClient instance] unfavoriteStatus:self.tweet.tweetId success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"tweet after call with favorite: %@",responseObject);
+            self.tweet = [[Tweet alloc] initWithDictionary:responseObject];
+            [self refresh];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"onTweetButton: could not unfavorite %@",error);
+        }];
+    }
+    
 }
 @end

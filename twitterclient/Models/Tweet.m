@@ -18,6 +18,16 @@
         self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
         self.tweetId = dictionary[@"id"];
         self.text = dictionary[@"text"];
+        self.favorited = [dictionary[@"favorited"] intValue];
+        self.retweeted = [dictionary[@"retweeted"] intValue];
+        self.retweetCount = [dictionary[@"retweet_count"] intValue];
+        self.favoriteCount = [dictionary[@"favorite_count"] intValue];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+        NSDate *date = [dateFormatter dateFromString:dictionary[@"created_at"]];
+        //NSLog(@"converting twitter timestamp %@  to: [%@]",dictionary[@"created_at"],date);
+        self.createdAt = date;
     }
     return self;
 }
