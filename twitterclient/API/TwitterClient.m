@@ -10,6 +10,8 @@
 
 @implementation TwitterClient
 
+static const BOOL kTestingOnly = YES;
+
 + (TwitterClient *) instance {
     static TwitterClient *instance = nil;
     static dispatch_once_t pred;
@@ -46,6 +48,18 @@
 - (AFHTTPRequestOperation *) homeTimelineWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     return [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation *) updateStatus:(NSString *)status success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    if (kTestingOnly) {
+        NSLog(@"WARNING: in developer test mode, not actually tweeting, just getting your latest tweet");
+        //return [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:success failure:failure];
+        return [self GET:@"1.1/statuses/user_timeline.json" parameters:@{@"screen_name":@"drnicolas23",@"count":@1} success:success failure:failure];
+    }
+    else {
+        return [self POST:@"1.1/statuses/update.json" parameters:@{@"status":status} success:success failure:failure];
+    }
 }
 
 @end

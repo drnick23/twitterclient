@@ -44,4 +44,10 @@
     // Configure the view for the selected state
 }
 
+- (void)animateFlash
+{
+    // TODO: animate flash effect on cell to show it's newly posted.
+    NSLog(@"TweetHomeViewCell animateFlash:TODO");
+}
+
 @end

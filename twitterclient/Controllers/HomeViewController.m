@@ -119,9 +119,28 @@
 - (void)onComposeButton:(id)sender {
     // pop up modal compose view controller
     TweetComposeViewController *tweetComposeViewController = [[TweetComposeViewController alloc] init];
+    tweetComposeViewController.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:navigationController animated:YES completion:nil];
     NSLog(@"Sign out");
 }
+
+- (void)updatedWithStatus:(Tweet *)tweet {
+    NSLog(@"Home view should now animate in tweet:%@",tweet.description);
+    
+    // let's add tweet to our timeline view
+    [self.tweetList add:tweet atTop:YES];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    /*[self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];*/
+    
+    TweetHomeViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell" forIndexPath:path];
+    [cell animateFlash];
+    //[self.tableView reloadData];
+}
+
 @end

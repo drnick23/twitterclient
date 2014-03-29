@@ -13,4 +13,6 @@
 
 @property (nonatomic,strong) Tweet *tweet;
 
+-(void) animateFlash;
+
 @end

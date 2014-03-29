@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TweetComposeViewController.h"
 
-@interface HomeViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface HomeViewController : UIViewController <TweetComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
 @end

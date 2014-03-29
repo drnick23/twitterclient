@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BDBOAuth1RequestOperationManager.h"
 
+#define TESTING_ONLY @YES;
+
 @interface TwitterClient : BDBOAuth1RequestOperationManager
 
 + (TwitterClient *)instance;
@@ -20,5 +22,7 @@
 
 - (AFHTTPRequestOperation *) homeTimelineWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (AFHTTPRequestOperation *) updateStatus:(NSString *)status success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end
