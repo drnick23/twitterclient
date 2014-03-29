@@ -50,6 +50,11 @@ static const BOOL kTestingOnly = YES;
     return [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:success failure:failure];
 }
 
+- (AFHTTPRequestOperation *) homeTimelineWithParameters:parameters success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    return [self GET:@"1.1/statuses/home_timeline.json" parameters:parameters success:success failure:failure];
+}
+
 - (AFHTTPRequestOperation *) updateStatus:(NSString *)status success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     if (kTestingOnly) {

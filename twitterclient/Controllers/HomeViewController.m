@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"HomeViewController:viewDidLoad");
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
@@ -56,19 +57,59 @@
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Compose" style:UIBarButtonItemStyleBordered target:self action:@selector(onComposeButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
+    // add pull to refresh feature
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+
     // register our custom cells
     UINib *tweetHomeViewCellNib = [UINib nibWithNibName:@"TweetHomeViewCell" bundle:nil];
     [self.tableView registerNib:tweetHomeViewCellNib forCellReuseIdentifier:@"TweetHomeViewCell"];
     
     
-    [[TwitterClient instance] homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    /*[[TwitterClient instance] homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"HomeViewController:viewDidLoad got timeline");
-        self.tweetList = [[TweetList alloc] initFromDictionary:responseObject];
+        self.tweetList = [[TweetList alloc] initWithDictionary:responseObject];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"HomeViewController:viewDidLoad could not get timeline");
+    }];*/
+    
+    [[TwitterClient instance] homeTimelineWithParameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"HomeViewController:viewDidLoad got timeline");
+        self.tweetList = [[TweetList alloc] initWithDictionary:responseObject];
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
     }];
 }
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    NSLog(@"refresh control");
+    [refreshControl endRefreshing];
+    
+    NSDictionary *parameters = nil;
+    NSString *newestId = [self.tweetList getNewestId];
+    
+    // only bother fetching new list if new stuff has happened.
+    if (newestId) {
+        parameters = @{@"since_id":newestId};
+        [[TwitterClient instance] homeTimelineWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"HomeViewController:viewDidLoad got timeline since %@ -> %@",parameters,responseObject);
+            TweetList *newTweets = [[TweetList alloc] initWithDictionary:responseObject];
+            if ([newTweets count]>0) {
+                NSLog(@"Got %d new tweets...prepending to List",[newTweets count]);
+                // append to existing tweetList
+                [self.tweetList prependWithTweetList:newTweets];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            //[self.tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
+        }];
+    }
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.tweetList count];

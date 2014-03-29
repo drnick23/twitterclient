@@ -22,7 +22,7 @@
     return _tweetList;
 }
 
-- (id)initFromDictionary:(NSDictionary *)dictionary {
+- (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
         //NSLog(@"TweetList:initFromDictionary %@",dictionary);
@@ -39,8 +39,15 @@
     return self;
 }
 
-- (void)add:(Tweet *)tweet atTop:(BOOL)atTop
-{
+- (NSString *)getNewestId {
+    if ([self count]==0) {
+        return nil;
+    }
+    Tweet *newestTweet = [self get:0];
+    return newestTweet.tweetId;
+}
+
+- (void)add:(Tweet *)tweet atTop:(BOOL)atTop {
     if (atTop) {
         [self.tweetList insertObject:tweet atIndex:0];
     } else {
@@ -49,14 +56,20 @@
     NSLog(@"added tweet to list %@",tweet.description);
 }
 
-- (Tweet *) get:(NSUInteger) index
-{
+- (Tweet *) get:(NSUInteger) index {
     return [self.tweetList objectAtIndex:index];
 }
 
-- (int) count
-{
+- (int) count {
     return [self.tweetList count];
+}
+
+- (void)prependWithTweetList:(TweetList *)tweetList {
+    
+    for (int i=[tweetList count]-1;i>=0;i--) {
+        [self add:[tweetList get:i] atTop:YES];
+    }
+    
 }
 
 
