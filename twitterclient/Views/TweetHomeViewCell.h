@@ -17,4 +17,7 @@
 
 -(CGFloat)calculateHeightWithTweet:(Tweet *)tweet;
 
+@property (weak, nonatomic) IBOutlet UIButton *favoritedButton;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+
 @end

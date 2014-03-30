@@ -82,16 +82,8 @@
                         <rect key="frame" x="72" y="66" width="290" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Reply" translatesAutoresizingMaskIntoConstraints="NO" id="4Z1-YJ-634">
-                                <rect key="frame" x="2" y="-2" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Retweet" highlightedImage="RetweetHighlighted" translatesAutoresizingMaskIntoConstraints="NO" id="81s-ID-5vT">
                                 <rect key="frame" x="65" y="-1" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Favorite" highlightedImage="FavoriteHighlighted" translatesAutoresizingMaskIntoConstraints="NO" id="bUq-5w-EiB">
-                                <rect key="frame" x="133" y="-1" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="com-QZ-bpH">
@@ -108,8 +100,26 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asZ-hl-Og2">
+                                <rect key="frame" x="132" y="-2" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Favorite">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="FavoriteHighlighted"/>
+                                <state key="highlighted" image="FavoriteHighlighted"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8h-Dk-uyS">
+                                <rect key="frame" x="5" y="-2" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Reply">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="Reply"/>
+                                <state key="highlighted" image="Reply"/>
+                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12345" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jns-Sl-9MG">
-                                <rect key="frame" x="153" y="1" width="55" height="21"/>
+                                <rect key="frame" x="153" y="0.0" width="55" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,9 +147,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="favoritedImageView" destination="bUq-5w-EiB" id="Wuu-XC-eMM"/>
+                <outlet property="favoritedButton" destination="asZ-hl-Og2" id="DXH-kj-8BW"/>
                 <outlet property="favoritesCountLabel" destination="Jns-Sl-9MG" id="agb-st-vlw"/>
                 <outlet property="repliesCountLabel" destination="com-QZ-bpH" id="h7p-A4-UkN"/>
+                <outlet property="replyButton" destination="k8h-Dk-uyS" id="uGY-lZ-YZX"/>
                 <outlet property="retweetedImageView" destination="81s-ID-5vT" id="Ykx-Yo-rMM"/>
                 <outlet property="retweetsCountLabel" destination="OhO-Gm-A1V" id="rGB-0c-v6a"/>
                 <outlet property="tweetTextLabel" destination="mVL-L6-j7e" id="vda-Wi-AKD"/>

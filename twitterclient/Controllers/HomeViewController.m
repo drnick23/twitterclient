@@ -153,6 +153,14 @@
     TweetHomeViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell" forIndexPath:indexPath];
     cell.tweet = tweet;
     
+    // connect our mini-buttons to actions on this controller
+    cell.replyButton.tag = indexPath.row;
+    [cell.replyButton addTarget:self action:@selector(replyTapped:) forControlEvents:UIControlEventTouchUpInside];
+    cell.favoritedButton.tag = indexPath.row;
+    [cell.favoritedButton addTarget:self action:@selector(favoritedTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    /*UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(replyTapped:)];
+    [cell.replyImageView addGestureRecognizer:tap];*/
     
     // check if need to load more for infinite scroll
     if (self.fetchMoreTweetsPastRow && (indexPath.row > self.fetchMoreTweetsPastRow)) {
@@ -162,6 +170,39 @@
     }
     
     return cell;
+}
+
+- (void)replyTapped:(UIButton *)sel {
+    NSLog(@"tapped on reply");
+    Tweet *tweet = [self.tweetList get:sel.tag];
+    
+    TweetComposeViewController *tweetComposeViewController = [[TweetComposeViewController alloc] init];
+    tweetComposeViewController.delegate = self;
+    tweetComposeViewController.tweetReplyTo = tweet;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+- (void)favoritedTapped:(UIButton *)sel {
+    
+    Tweet *tweet = [self.tweetList get:sel.tag];
+    NSLog(@"favorited tweet %@",tweet.description);
+    NSLog(@"TODO NOTE: didn't tie in to actual favoriting yet...would need to do a call on client for that but for this demo was ommited");
+    
+    if (!tweet.favorited) {
+        tweet.favorited = YES;
+        tweet.favoriteCount += 1;
+    } else {
+        tweet.favorited = NO;
+        tweet.favoriteCount -= 1;
+    }
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:sel.tag inSection:0];
+
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

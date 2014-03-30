@@ -53,7 +53,7 @@ CGFloat const kCellHeightCalculationMinHeight = 80;
     
     
     if (tweet.favorited) {
-        self.favoritedImageView.highlighted = YES;
+        self.favoritedButton.highlighted = YES;
     }
     if (tweet.retweeted) {
         self.retweetedImageView.highlighted = YES;
