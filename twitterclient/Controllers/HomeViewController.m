@@ -24,6 +24,8 @@
 
 @property (nonatomic,assign) NSUInteger fetchMoreTweetsPastRow;
 
+@property (nonatomic,strong) TweetHomeViewCell *prototypeCell;
+
 @end
 
 @implementation HomeViewController
@@ -130,8 +132,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100.0f;
+    
+    Tweet *tweet = [self.tweetList get:indexPath.row];
+    return [self.prototypeCell calculateHeightWithTweet:tweet];
+    
 }
+
+- (TweetHomeViewCell *)prototypeCell
+{
+    if (!_prototypeCell) {
+        _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell"];
+    }
+    return _prototypeCell;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     Tweet *tweet = [self.tweetList get:indexPath.row];
@@ -152,17 +166,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // Display Alert Message
     TweetHomeViewCell *cell = (TweetHomeViewCell *) [tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"You selected %@",cell.tweet.text);
     
     TweetDetailViewController *tweetDetailViewController = [[TweetDetailViewController alloc] init];
     tweetDetailViewController.tweet = cell.tweet;
     
-    if (!self.navigationController) {
-        NSLog(@"TODO: no navigation controller here");
-    }
     [self.navigationController pushViewController:tweetDetailViewController animated:YES];
     
 }

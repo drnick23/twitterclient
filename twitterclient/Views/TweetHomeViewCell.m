@@ -9,6 +9,10 @@
 #import "TweetHomeViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
+CGFloat const kCellHeightCalculationExtra = 60;
+CGFloat const kCellHeightCalculationMinHeight = 80;
+
+
 @interface TweetHomeViewCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
@@ -22,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *retweetedImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *favoritedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *repliesCountLabel;
+
 
 @end
 
@@ -54,7 +59,6 @@
 }
 
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -62,10 +66,26 @@
     // Configure the view for the selected state
 }
 
-- (void)animateFlash
-{
+- (void)animateFlash {
     // TODO: animate flash effect on cell to show it's newly posted.
     NSLog(@"TweetHomeViewCell animateFlash:TODO");
+}
+
+- (CGFloat)calculateHeightWithTweet:(Tweet *)tweet {
+    /*NSDictionary *restaurant = restaurants[indexPath.row];
+    NSString* restaurantNameStr = [NSString stringWithFormat:@"%@",restaurant[@"name"]];
+    UIFont *font = [UIFont boldSystemFontOfSize: 12];
+    CGRect rect = [restaurantNameStr boundingRectWithSize:CGSizeMake(RESTAURANT_LABEL_WIDTH, MAXFLOAT)
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:@{NSFontAttributeName: font} context:nil];
+    return rect.size.height + CELL_HEIGHT_EXTRA;*/
+    UIFont *font = [UIFont systemFontOfSize: 14];
+    CGRect rect = [tweet.text boundingRectWithSize:CGSizeMake(self.tweetTextLabel.bounds.size.width, MAXFLOAT)
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:@{NSFontAttributeName: font} context:nil];
+    CGFloat height = rect.size.height;
+    
+    return MAX(kCellHeightCalculationMinHeight,height + kCellHeightCalculationExtra);
 }
 
 @end

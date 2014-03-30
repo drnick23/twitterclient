@@ -15,4 +15,6 @@
 
 -(void) animateFlash;
 
+-(CGFloat)calculateHeightWithTweet:(Tweet *)tweet;
+
 @end
