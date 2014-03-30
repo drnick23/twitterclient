@@ -8,6 +8,7 @@
 
 #import "TweetHomeViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "MHPrettyDate.h"
 
 CGFloat const kCellHeightCalculationExtra = 60;
 CGFloat const kCellHeightCalculationMinHeight = 80;
@@ -47,6 +48,8 @@ CGFloat const kCellHeightCalculationMinHeight = 80;
     self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d",tweet.retweetCount];
     self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d",tweet.favoriteCount];
     self.repliesCountLabel.text = @""; // empty for now
+    
+    self.userCreatedAtLabel.text = [MHPrettyDate prettyDateFromDate:tweet.createdAt withFormat:MHPrettyDateShortRelativeTime];
     
     
     if (tweet.favorited) {
