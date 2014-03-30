@@ -24,8 +24,6 @@ CGFloat const kCellHeightCalculationMinHeight = 80;
 
 @property (weak, nonatomic) IBOutlet UILabel *retweetsCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favoritesCountLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *retweetedImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *favoritedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *repliesCountLabel;
 
 
@@ -56,7 +54,7 @@ CGFloat const kCellHeightCalculationMinHeight = 80;
         self.favoritedButton.highlighted = YES;
     }
     if (tweet.retweeted) {
-        self.retweetedImageView.highlighted = YES;
+        self.retweetButton.highlighted = YES;
     }
     
 }

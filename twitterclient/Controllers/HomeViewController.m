@@ -156,6 +156,8 @@
     // connect our mini-buttons to actions on this controller
     cell.replyButton.tag = indexPath.row;
     [cell.replyButton addTarget:self action:@selector(replyTapped:) forControlEvents:UIControlEventTouchUpInside];
+    cell.retweetButton.tag = indexPath.row;
+    [cell.retweetButton addTarget:self action:@selector(retweetTapped:) forControlEvents:UIControlEventTouchUpInside];
     cell.favoritedButton.tag = indexPath.row;
     [cell.favoritedButton addTarget:self action:@selector(favoritedTapped:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -182,6 +184,27 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+- (void)retweetTapped:(UIButton *)sel {
+    
+    Tweet *tweet = [self.tweetList get:sel.tag];
+    NSLog(@"retweeted tweet %@",tweet.description);
+    NSLog(@"TODO NOTE: didn't tie in to actual retweeting yet...would need to do a call on client for that but for this demo was ommited");
+    
+    if (!tweet.retweeted) {
+        tweet.retweeted = YES;
+        tweet.retweetCount += 1;
+    } else {
+        NSLog(@"todo: do dialogue to un-retweet");
+        tweet.retweeted = NO;
+        tweet.retweetCount -= 1;
+    }
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:sel.tag inSection:0];
+    
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];
     
 }
 

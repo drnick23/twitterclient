@@ -12,6 +12,8 @@
 @interface LoginViewController ()
 - (IBAction)onLogin:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIImageView *twitterIconImageView;
+
 @end
 
 @implementation LoginViewController
@@ -29,6 +31,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    // Animate the twitter image to come up from bottom.
+    [self animateEaseInImageFromBottom:self.twitterIconImageView duration:1.0];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,5 +46,23 @@
 - (IBAction)onLogin:(id)sender {
     [[TwitterClient instance] login];
 }
+
+- (void)animateEaseInImageFromBottom:(UIImageView *)image duration:(NSTimeInterval)duration {
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, 600);
+    image.transform = transform;
+    
+    // Setup the animation
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    // The transform matrix
+    image.transform = CGAffineTransformMakeTranslation(0, 0);
+    // Commit the changes
+    [UIView commitAnimations];
+}
+
 
 @end

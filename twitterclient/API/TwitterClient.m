@@ -10,7 +10,7 @@
 
 @implementation TwitterClient
 
-static const BOOL kTestingInDeveloperMode = YES;
+static const BOOL kTestingInDeveloperMode = NO;
 
 + (TwitterClient *) instance {
     static TwitterClient *instance = nil;

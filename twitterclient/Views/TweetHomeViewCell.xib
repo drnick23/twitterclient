@@ -82,10 +82,6 @@
                         <rect key="frame" x="72" y="66" width="290" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Retweet" highlightedImage="RetweetHighlighted" translatesAutoresizingMaskIntoConstraints="NO" id="81s-ID-5vT">
-                                <rect key="frame" x="65" y="-1" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="com-QZ-bpH">
                                 <rect key="frame" x="27" y="1" width="37" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -108,6 +104,15 @@
                                 </state>
                                 <state key="selected" image="FavoriteHighlighted"/>
                                 <state key="highlighted" image="FavoriteHighlighted"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h3R-fH-j3b">
+                                <rect key="frame" x="67" y="-2" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Retweet">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="RetweetHighlighted"/>
+                                <state key="highlighted" image="RetweetHighlighted"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8h-Dk-uyS">
                                 <rect key="frame" x="5" y="-2" width="24" height="24"/>
@@ -151,7 +156,7 @@
                 <outlet property="favoritesCountLabel" destination="Jns-Sl-9MG" id="agb-st-vlw"/>
                 <outlet property="repliesCountLabel" destination="com-QZ-bpH" id="h7p-A4-UkN"/>
                 <outlet property="replyButton" destination="k8h-Dk-uyS" id="uGY-lZ-YZX"/>
-                <outlet property="retweetedImageView" destination="81s-ID-5vT" id="Ykx-Yo-rMM"/>
+                <outlet property="retweetButton" destination="h3R-fH-j3b" id="b7z-pe-KkS"/>
                 <outlet property="retweetsCountLabel" destination="OhO-Gm-A1V" id="rGB-0c-v6a"/>
                 <outlet property="tweetTextLabel" destination="mVL-L6-j7e" id="vda-Wi-AKD"/>
                 <outlet property="userCreatedAtLabel" destination="sII-Tf-tdw" id="f9G-rL-TsM"/>

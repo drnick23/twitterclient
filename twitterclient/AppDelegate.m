@@ -76,6 +76,7 @@
     if (!user) {
         NSLog(@"setting to loginViewController");
         if (!self.loginViewController) {
+            // on first login, flash the rootViewController in
             self.loginViewController = [[LoginViewController alloc] init];
         }
         self.window.rootViewController = self.loginViewController;
