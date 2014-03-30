@@ -19,4 +19,7 @@
 
 @property (nonatomic,weak) id <TweetComposeViewControllerDelegate> delegate;
 
+// optional: set the tweet we want to reply to in the compose view
+@property (nonatomic,strong) Tweet *tweetReplyTo;
+
 @end

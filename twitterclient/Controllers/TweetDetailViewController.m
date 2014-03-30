@@ -48,6 +48,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
+    
     [self refresh];
 }
 
@@ -68,6 +70,10 @@
     self.createdAtLabel.text = [NSDateFormatter localizedStringFromDate:self.tweet.createdAt
                                                               dateStyle:NSDateFormatterShortStyle
                                                               timeStyle:NSDateFormatterShortStyle];
+    
+    self.favoriteButton.selected = self.tweet.favorited;
+    self.retweetButton.selected = self.tweet.retweeted;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,11 +84,46 @@
 
 - (IBAction)onReplyButton:(id)sender {
     NSLog(@"onReplyButton");
+    TweetComposeViewController *tweetComposeViewController = [[TweetComposeViewController alloc] init];
+    tweetComposeViewController.delegate = self;
+    tweetComposeViewController.tweetReplyTo = self.tweet;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+- (void)updatedWithStatus:(Tweet *)tweet {
+    NSLog(@"TweetDetailView:updateWithStatus %@",tweet.description);
+    
+    // let's add tweet to our timeline view
+    /*[self.tweetList add:tweet atTop:YES];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];*/
+    /*[self.tableView reloadData];
+     [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];*/
+
+    //[self.tableView reloadData];
+}
 - (IBAction)onRetweetButton:(id)sender {
      NSLog(@"onRetweetButton");
     self.retweetButton.highlighted = !self.retweetButton.highlighted;
+    if (!self.tweet.retweeted) {
+        NSLog(@"retweeting...");
+        [[TwitterClient instance] favoriteStatus:self.tweet.tweetId success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"tweet after call with retweet: %@",responseObject);
+            self.tweet = [[Tweet alloc] initWithDictionary:responseObject];
+            [self refresh];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"onTweetButton: could not retweet %@",error);
+        }];
+    } else {
+        NSLog(@"already retweeted not doing anything...");
+        
+    }
+
 }
 
 - (IBAction)onFavoriteButton:(id)sender {

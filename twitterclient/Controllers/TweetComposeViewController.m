@@ -68,6 +68,10 @@
     self.tweetTextView.text = @"";
     self.tweetTextView.keyboardType = UIKeyboardTypeTwitter;
     [self.tweetTextView becomeFirstResponder];
+    
+    if (self.tweetReplyTo) {
+        self.tweetTextView.text = [NSString stringWithFormat:@"@%@ ",self.tweetReplyTo.user.screenName];
+    }
 
 }
 
@@ -126,7 +130,7 @@
 - (void)onTweetButton:(id)sender {
     NSLog(@"ComposeTweetViewController onTweetButton");
     
-    [[TwitterClient instance] updateStatus:self.tweetTextView.text success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[TwitterClient instance] updateStatus:self.tweetTextView.text inReplyToStatusId:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"success tweet %@",responseObject);
         NSDictionary *dictionary;
         if ([responseObject isKindOfClass:[NSArray class]]) {

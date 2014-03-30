@@ -164,7 +164,6 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:navigationController animated:YES completion:nil];
-    NSLog(@"Sign out");
 }
 
 - (void)updatedWithStatus:(Tweet *)tweet {

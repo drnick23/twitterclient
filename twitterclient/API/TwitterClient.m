@@ -55,15 +55,19 @@ static const BOOL kTestingInDeveloperMode = YES;
     return [self GET:@"1.1/statuses/home_timeline.json" parameters:parameters success:success failure:failure];
 }
 
-- (AFHTTPRequestOperation *) updateStatus:(NSString *)status success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    
+- (AFHTTPRequestOperation *) updateStatus:(NSString *)status inReplyToStatusId:(NSString *)inReplyToStatusId success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters;
+    if (inReplyToStatusId) {
+        parameters = @{@"status":status,@"in_reply_to_status_id":inReplyToStatusId};
+    } else {
+        parameters = @{@"status":status};
+    }
     if (kTestingInDeveloperMode) {
         NSLog(@"WARNING: in developer test mode, not actually tweeting, just getting your latest tweet");
-        //return [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:success failure:failure];
         return [self GET:@"1.1/statuses/user_timeline.json" parameters:@{@"screen_name":@"drnicolas23",@"count":@1} success:success failure:failure];
     }
     else {
-        return [self POST:@"1.1/statuses/update.json" parameters:@{@"status":status} success:success failure:failure];
+        return [self POST:@"1.1/statuses/update.json" parameters:parameters success:success failure:failure];
     }
 }
 
@@ -76,6 +80,12 @@ static const BOOL kTestingInDeveloperMode = YES;
 - (AFHTTPRequestOperation *) unfavoriteStatus:(NSString *)tweetId success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     return [self POST:@"1.1/favorites/destroy.json" parameters:@{@"id":tweetId} success:success failure:failure];
+    
+}
+
+- (AFHTTPRequestOperation *) retweetStatus:(NSString *)tweetId success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    return [self POST:@"1.1/statuses/retweet.json" parameters:@{@"id":tweetId} success:success failure:failure];
     
 }
 
