@@ -65,8 +65,18 @@
     self.userNameLabel.text = self.tweet.user.name;
     self.userScreenNameLabel.text = [NSString stringWithFormat:@"@%@",self.tweet.user.screenName];
     [self.userProfileImageView setImageWithURL:self.tweet.user.profileImageURL];
-    self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d RETWEETS",self.tweet.retweetCount];
-    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d FAVORITES",self.tweet.favoriteCount];
+    
+    if (self.tweet.retweetCount > 0) {
+        self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d RETWEETS",self.tweet.retweetCount];
+    } else {
+        self.retweetsCountLabel.text = @"";
+    }
+    if (self.tweet.favoriteCount > 0) {
+        self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d FAVORITES",self.tweet.favoriteCount];
+    } else {
+        self.favoritesCountLabel.text = @"";
+    }
+    
     self.createdAtLabel.text = [NSDateFormatter localizedStringFromDate:self.tweet.createdAt
                                                               dateStyle:NSDateFormatterShortStyle
                                                               timeStyle:NSDateFormatterShortStyle];
@@ -111,7 +121,7 @@
     self.retweetButton.highlighted = !self.retweetButton.highlighted;
     if (!self.tweet.retweeted) {
         NSLog(@"retweeting...");
-        [[TwitterClient instance] favoriteStatus:self.tweet.tweetId success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[TwitterClient instance] retweetStatus:self.tweet.tweetId success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"tweet after call with retweet: %@",responseObject);
             self.tweet = [[Tweet alloc] initWithDictionary:responseObject];
             [self refresh];
