@@ -47,6 +47,14 @@
     return newestTweet.tweetId;
 }
 
+- (NSString *)getMaxId {
+    if ([self count]==0) {
+        return nil;
+    }
+    Tweet *oldestTweet = [self get:[self count]-1];
+    return oldestTweet.tweetId;
+}
+
 - (void)add:(Tweet *)tweet atTop:(BOOL)atTop {
     if (atTop) {
         [self.tweetList insertObject:tweet atIndex:0];

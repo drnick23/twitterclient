@@ -20,5 +20,6 @@
 
 - (Tweet *)get:(NSUInteger)index;
 - (NSString *)getNewestId;
+- (NSString *)getMaxId;
 - (int) count;
 @end

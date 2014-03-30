@@ -15,7 +15,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *userScreenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *userCreatedAtLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *retweetsCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favoritesCountLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *retweetedImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *favoritedImageView;
+@property (weak, nonatomic) IBOutlet UILabel *repliesCountLabel;
 
 @end
 
@@ -33,6 +39,18 @@
     self.userNameLabel.text = tweet.user.name;
     self.userScreenNameLabel.text = tweet.user.screenName;
     [self.userProfileImageView setImageWithURL:tweet.user.profileImageURL];
+    self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d",tweet.retweetCount];
+    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d",tweet.favoriteCount];
+    self.repliesCountLabel.text = @""; // empty for now
+    
+    
+    if (tweet.favorited) {
+        self.favoritedImageView.highlighted = YES;
+    }
+    if (tweet.retweeted) {
+        self.retweetedImageView.highlighted = YES;
+    }
+    
 }
 
 

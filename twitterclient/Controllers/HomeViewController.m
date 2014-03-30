@@ -22,6 +22,8 @@
 
 @property (nonatomic,strong) TweetList *tweetList;
 
+@property (nonatomic,assign) NSUInteger fetchMoreTweetsPastRow;
+
 @end
 
 @implementation HomeViewController
@@ -44,8 +46,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    
-    
     // Configure the navigation bar
     self.navigationItem.title = @"Home";
     
@@ -66,21 +66,35 @@
     UINib *tweetHomeViewCellNib = [UINib nibWithNibName:@"TweetHomeViewCell" bundle:nil];
     [self.tableView registerNib:tweetHomeViewCellNib forCellReuseIdentifier:@"TweetHomeViewCell"];
     
+    [self fetchMoreTweets];
     
-    /*[[TwitterClient instance] homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"HomeViewController:viewDidLoad got timeline");
-        self.tweetList = [[TweetList alloc] initWithDictionary:responseObject];
+}
+
+- (void)fetchMoreTweets {
+    NSLog(@"fetch more tweets");
+    
+    NSDictionary *parameters = nil;
+    
+    // if we have a tweetList already, get id of last tweet in list and fetch beyond that for infinite scroll
+    if (self.tweetList) {
+        parameters = @{@"max_id":[self.tweetList getMaxId]};
+    }
+    
+    [[TwitterClient instance] homeTimelineWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"HomeViewController:viewDidLoad got timeline");// %@",responseObject);
+        
+        TweetList *tweetList = [[TweetList alloc] initWithDictionary:responseObject];
+        if (!self.tweetList) {
+            self.tweetList = tweetList;
+        } else {
+            [self.tweetList appendWithTweetList:tweetList];
+        }
+        self.fetchMoreTweetsPastRow = [self.tweetList count]-3;
+        NSLog(@"Will fetch more tweets past row %d",self.fetchMoreTweetsPastRow);
+        
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"HomeViewController:viewDidLoad could not get timeline");
-    }];*/
-    
-    [[TwitterClient instance] homeTimelineWithParameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"HomeViewController:viewDidLoad got timeline %@",responseObject);
-        self.tweetList = [[TweetList alloc] initWithDictionary:responseObject];
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
+        NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
     }];
 }
 
@@ -124,6 +138,14 @@
     
     TweetHomeViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell" forIndexPath:indexPath];
     cell.tweet = tweet;
+    
+    
+    // check if need to load more for infinite scroll
+    if (self.fetchMoreTweetsPastRow && (indexPath.row > self.fetchMoreTweetsPastRow)) {
+        // set to 0 so it won't keep requesting fetches until it's actually done fetching one.
+        self.fetchMoreTweetsPastRow = 0;
+        [self fetchMoreTweets];
+    }
     
     return cell;
 }
