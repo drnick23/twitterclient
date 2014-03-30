@@ -54,8 +54,6 @@
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton:)];
     self.navigationItem.leftBarButtonItem = leftButton;
                                    
-    /*UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"rightButton"] style:UIBarButtonItemStylePlain target:self action:@selector(onRightButton:)];
-    self.navigationItem.rightBarButtonItem = rightButton;*/
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Compose" style:UIBarButtonItemStyleBordered target:self action:@selector(onComposeButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
@@ -111,15 +109,18 @@
     if (newestId) {
         parameters = @{@"since_id":newestId};
         [[TwitterClient instance] homeTimelineWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
             NSLog(@"HomeViewController:viewDidLoad got timeline since %@ -> %@",parameters,responseObject);
+            
             TweetList *newTweets = [[TweetList alloc] initWithDictionary:responseObject];
+            
             if ([newTweets count]>0) {
                 NSLog(@"Got %d new tweets...prepending to List",[newTweets count]);
                 // append to existing tweetList
                 [self.tweetList prependWithTweetList:newTweets];
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
             }
-            //[self.tableView reloadData];
+ 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
         }];
@@ -160,9 +161,6 @@
     [cell.retweetButton addTarget:self action:@selector(retweetTapped:) forControlEvents:UIControlEventTouchUpInside];
     cell.favoritedButton.tag = indexPath.row;
     [cell.favoritedButton addTarget:self action:@selector(favoritedTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    /*UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(replyTapped:)];
-    [cell.replyImageView addGestureRecognizer:tap];*/
     
     // check if need to load more for infinite scroll
     if (self.fetchMoreTweetsPastRow && (indexPath.row > self.fetchMoreTweetsPastRow)) {
@@ -250,16 +248,18 @@
 }
 
 - (void)onSignOutButton:(id)sender {
-    [User setCurrentUser:nil];
     NSLog(@"Sign out");
+    [User setCurrentUser:nil];
 }
 
 - (void)onComposeButton:(id)sender {
     // pop up modal compose view controller
     TweetComposeViewController *tweetComposeViewController = [[TweetComposeViewController alloc] init];
     tweetComposeViewController.delegate = self;
+    
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetComposeViewController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -272,12 +272,10 @@
     NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    /*[self.tableView reloadData];
-    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];*/
-    
+ 
     TweetHomeViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetHomeViewCell" forIndexPath:path];
     [cell animateFlash];
-    //[self.tableView reloadData];
+
 }
 
 @end

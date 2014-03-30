@@ -105,16 +105,9 @@
 - (void)updatedWithStatus:(Tweet *)tweet {
     NSLog(@"TweetDetailView:updateWithStatus %@",tweet.description);
     
-    // let's add tweet to our timeline view
-    /*[self.tweetList add:tweet atTop:YES];
-    
-    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];*/
-    /*[self.tableView reloadData];
-     [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];*/
-
-    //[self.tableView reloadData];
+    // TODO: should add tweet to our home timeline view
+    /*[self.tweetList add:tweet atTop:YES];*/
+ 
 }
 - (IBAction)onRetweetButton:(id)sender {
      NSLog(@"onRetweetButton");
