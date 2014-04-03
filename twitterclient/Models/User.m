@@ -63,9 +63,12 @@ static User *currentUser = nil;
             self.userId = dictionary[@"id"];
             self.screenName = dictionary[@"screen_name"];
             self.profileImageURL = [NSURL URLWithString:dictionary[@"profile_image_url"]];
+            self.profileBackgroundImageURL = [NSURL URLWithString:dictionary[@"profile_background_image_url"]];
+            self.profileBackgroundColor = dictionary[@"profile_background_color"];
             self.followersCount = dictionary[@"followers_count"];
             self.statusesCount = dictionary[@"statuses_count"];
             self.friendsCount = dictionary[@"friends_count"];
+            
             //NSLog(@"User:initWithDictionary: %@ [%@]",self.name,self.userId);
         } else {
             self = nil;
@@ -105,7 +108,7 @@ static User *currentUser = nil;
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"User %@ [%@] tweets: %@",self.name,self.userId,self.statusesCount];
+    return [NSString stringWithFormat:@"User %@ [%@] tweets: %@",self.name,self.userId,self.profileBackgroundImageURL];
 }
 
 @end

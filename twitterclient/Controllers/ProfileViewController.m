@@ -8,9 +8,12 @@
 
 #import "ProfileViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "HexColor.h"
 
 @interface ProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *userProfileBackgroundImageView;
+@property (strong,nonatomic) NSString *userProfileBackgroundColor;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userScreenName;
 
@@ -53,6 +56,13 @@
     self.userStatusesCountLabel.text = [NSString stringWithFormat:@"%@",self.user.statusesCount];
     self.userFollowingCountLabel.text = [NSString stringWithFormat:@"%@",self.user.followersCount];
     self.userFriendsCountLabel.text = [NSString stringWithFormat:@"%@",self.user.friendsCount];
+    
+    if (self.user.profileBackgroundImageURL) {
+        [self.userProfileBackgroundImageView setImageWithURL:self.user.profileBackgroundImageURL];
+    }
+    if (self.user.profileBackgroundColor) {
+        self.userProfileBackgroundImageView.backgroundColor = [UIColor colorWithHexString:self.user.profileBackgroundColor];
+    }
 }
 
 - (void)didReceiveMemoryWarning
