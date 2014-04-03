@@ -16,6 +16,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vBG-G0-p5C">
                         <rect key="frame" x="6" y="10" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="width" constant="64" id="CKb-vB-2eT"/>
                             <constraint firstAttribute="height" constant="64" id="Lkp-Zr-SEI"/>
@@ -139,6 +140,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <gestureRecognizers/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="mVL-L6-j7e" secondAttribute="trailing" constant="9" id="6C0-lk-PDI"/>
                     <constraint firstItem="ctm-65-bIT" firstAttribute="top" secondItem="mVL-L6-j7e" secondAttribute="bottom" constant="4" id="7lX-uw-34S"/>

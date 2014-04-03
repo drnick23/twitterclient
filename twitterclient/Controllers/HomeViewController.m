@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "ProfileViewController.h"
 #import "TweetDetailViewController.h"
 #import "TweetComposeViewController.h"
 #import "TwitterClient.h"
@@ -15,7 +16,7 @@
 #import "TweetHomeViewCell.h"
 
 
-@interface HomeViewController ()
+@interface HomeViewController () <UIGestureRecognizerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -162,6 +163,13 @@
     cell.favoritedButton.tag = indexPath.row;
     [cell.favoritedButton addTarget:self action:@selector(favoritedTapped:) forControlEvents:UIControlEventTouchUpInside];
     
+    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileTapped:)];
+    cell.userProfileImageView.tag = indexPath.row;
+    [cell.userProfileImageView setUserInteractionEnabled:YES];
+    [tgr setDelegate:self];
+    [cell.userProfileImageView addGestureRecognizer:tgr];
+    
+    
     // check if need to load more for infinite scroll
     if (self.fetchMoreTweetsPastRow && (indexPath.row > self.fetchMoreTweetsPastRow)) {
         // set to 0 so it won't keep requesting fetches until it's actually done fetching one.
@@ -224,6 +232,16 @@
 
     [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationBottom];
     
+}
+
+- (void)profileTapped:(UIGestureRecognizer *)tap {
+    
+    Tweet *tweet = [self.tweetList get:tap.view.tag];
+    NSLog(@"profile was tapped, got user %@",tweet.user);
+    // slide in profile view controller
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.user = tweet.user;
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
