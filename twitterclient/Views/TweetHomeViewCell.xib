@@ -40,7 +40,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ScreenName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8M-u4-PAd">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="@ScreenName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8M-u4-PAd">
                                 <rect key="frame" x="86" y="1" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -70,6 +70,7 @@
                             <constraint firstAttribute="trailing" secondItem="sII-Tf-tdw" secondAttribute="trailing" constant="5" id="McS-YM-BCo"/>
                             <constraint firstItem="i8M-u4-PAd" firstAttribute="top" secondItem="Git-bp-spy" secondAttribute="top" constant="1" id="Ssj-Mi-yvo"/>
                             <constraint firstItem="i8M-u4-PAd" firstAttribute="leading" secondItem="IIM-QV-omT" secondAttribute="trailing" constant="8" id="eDX-Wu-jFV"/>
+                            <constraint firstItem="sII-Tf-tdw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i8M-u4-PAd" secondAttribute="trailing" constant="10" id="jat-k4-xag"/>
                         </constraints>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here are the tweet contents limited to 240 characters" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="mVL-L6-j7e">
