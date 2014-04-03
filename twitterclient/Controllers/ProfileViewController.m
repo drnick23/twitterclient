@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userScreenName;
 
+@property (weak, nonatomic) IBOutlet UILabel *userStatusesCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userFollowingCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userFriendsCountLabel;
 @end
 
 @implementation ProfileViewController
@@ -46,6 +49,10 @@
     self.userNameLabel.text = self.user.name;
     self.userScreenName.text = self.user.screenName;
     [self.userProfileImageView setImageWithURL:self.user.profileImageURL];
+    NSLog(@"user data %@",self.user);
+    self.userStatusesCountLabel.text = [NSString stringWithFormat:@"%@",self.user.statusesCount];
+    self.userFollowingCountLabel.text = [NSString stringWithFormat:@"%@",self.user.followersCount];
+    self.userFriendsCountLabel.text = [NSString stringWithFormat:@"%@",self.user.friendsCount];
 }
 
 - (void)didReceiveMemoryWarning
