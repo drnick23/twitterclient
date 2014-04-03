@@ -30,8 +30,8 @@
 		0197C0D218E48FBD00434592 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0D118E48FBD00434592 /* TwitterClient.m */; };
 		0197C0D618E4941500434592 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0D418E4941500434592 /* LoginViewController.m */; };
 		0197C0D718E4941500434592 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0D518E4941500434592 /* LoginViewController.xib */; };
-		0197C0E818E5BA1700434592 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0E618E5BA1700434592 /* HomeViewController.m */; };
-		0197C0E918E5BA1700434592 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0E718E5BA1700434592 /* HomeViewController.xib */; };
+		0197C0E818E5BA1700434592 /* TweetListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0E618E5BA1700434592 /* TweetListViewController.m */; };
+		0197C0E918E5BA1700434592 /* TweetListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197C0E718E5BA1700434592 /* TweetListViewController.xib */; };
 		0197C0EC18E5BE0C00434592 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EB18E5BE0C00434592 /* User.m */; };
 		0197C0EF18E5E97100434592 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0EE18E5E97100434592 /* Tweet.m */; };
 		0197C0F218E5EB6C00434592 /* TweetList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0197C0F118E5EB6C00434592 /* TweetList.m */; };
@@ -88,9 +88,9 @@
 		0197C0D318E4941500434592 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Controllers/LoginViewController.h; sourceTree = "<group>"; };
 		0197C0D418E4941500434592 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Controllers/LoginViewController.m; sourceTree = "<group>"; };
 		0197C0D518E4941500434592 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Controllers/LoginViewController.xib; sourceTree = "<group>"; };
-		0197C0E518E5BA1700434592 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Controllers/HomeViewController.h; sourceTree = "<group>"; };
-		0197C0E618E5BA1700434592 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = Controllers/HomeViewController.m; sourceTree = "<group>"; };
-		0197C0E718E5BA1700434592 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeViewController.xib; path = Controllers/HomeViewController.xib; sourceTree = "<group>"; };
+		0197C0E518E5BA1700434592 /* TweetListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetListViewController.h; path = Controllers/TweetListViewController.h; sourceTree = "<group>"; };
+		0197C0E618E5BA1700434592 /* TweetListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetListViewController.m; path = Controllers/TweetListViewController.m; sourceTree = "<group>"; };
+		0197C0E718E5BA1700434592 /* TweetListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetListViewController.xib; path = Controllers/TweetListViewController.xib; sourceTree = "<group>"; };
 		0197C0EA18E5BE0C00434592 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Models/User.h; sourceTree = "<group>"; };
 		0197C0EB18E5BE0C00434592 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Models/User.m; sourceTree = "<group>"; };
 		0197C0ED18E5E97100434592 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tweet.h; path = Models/Tweet.h; sourceTree = "<group>"; };
@@ -236,9 +236,9 @@
 		0197C0D818E4952600434592 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0197C0E518E5BA1700434592 /* HomeViewController.h */,
-				0197C0E618E5BA1700434592 /* HomeViewController.m */,
-				0197C0E718E5BA1700434592 /* HomeViewController.xib */,
+				0197C0E518E5BA1700434592 /* TweetListViewController.h */,
+				0197C0E618E5BA1700434592 /* TweetListViewController.m */,
+				0197C0E718E5BA1700434592 /* TweetListViewController.xib */,
 				0197C0D318E4941500434592 /* LoginViewController.h */,
 				0197C0D418E4941500434592 /* LoginViewController.m */,
 				0197C0D518E4941500434592 /* LoginViewController.xib */,
@@ -362,7 +362,7 @@
 				0197C0AB18E48EE200434592 /* InfoPlist.strings in Resources */,
 				0197C10218E5FE2E00434592 /* TweetDetailViewController.xib in Resources */,
 				015DA9AF18EDBDE000E90BB9 /* MenuProfileTableViewCell.xib in Resources */,
-				0197C0E918E5BA1700434592 /* HomeViewController.xib in Resources */,
+				0197C0E918E5BA1700434592 /* TweetListViewController.xib in Resources */,
 				015DA9B418EDC1C200E90BB9 /* MenuLinkTableViewCell.xib in Resources */,
 				015DA9B918EDC92200E90BB9 /* ProfileViewController.xib in Resources */,
 				015DA9A918EDB97800E90BB9 /* MenuViewController.xib in Resources */,
@@ -433,7 +433,7 @@
 				015DA9A818EDB97800E90BB9 /* MenuViewController.m in Sources */,
 				0197C0D218E48FBD00434592 /* TwitterClient.m in Sources */,
 				015DA9AE18EDBDE000E90BB9 /* MenuProfileTableViewCell.m in Sources */,
-				0197C0E818E5BA1700434592 /* HomeViewController.m in Sources */,
+				0197C0E818E5BA1700434592 /* TweetListViewController.m in Sources */,
 				0197C0AD18E48EE200434592 /* main.m in Sources */,
 				0197C10118E5FE2E00434592 /* TweetDetailViewController.m in Sources */,
 			);

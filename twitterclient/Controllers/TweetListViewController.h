@@ -9,7 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "TweetComposeViewController.h"
 
-@interface HomeViewController : UIViewController <TweetComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+enum FeedType {
+    FT_HOME_TIMELINE,
+    FT_USER_MENTIONS
+};
+typedef enum FeedType FeedType;
+
+
+@interface TweetListViewController : UIViewController <TweetComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+
+@property (nonatomic,assign) FeedType feed;
 
 @end

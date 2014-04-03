@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Nicolas Halper. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "TweetListViewController.h"
 #import "ProfileViewController.h"
 #import "TweetDetailViewController.h"
 #import "TweetComposeViewController.h"
@@ -16,7 +16,7 @@
 #import "TweetHomeViewCell.h"
 
 
-@interface HomeViewController () <UIGestureRecognizerDelegate>
+@interface TweetListViewController () <UIGestureRecognizerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation HomeViewController
+@implementation TweetListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,7 +50,11 @@
     self.tableView.dataSource = self;
     
     // Configure the navigation bar
-    self.navigationItem.title = @"Home";
+    if (self.feed == FT_HOME_TIMELINE) {
+        self.navigationItem.title = @"Home";
+    } else if (self.feed == FT_USER_MENTIONS) {
+        self.navigationItem.title = @"Mentions";
+    }
     
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton:)];
     self.navigationItem.leftBarButtonItem = leftButton;
@@ -80,23 +84,47 @@
     if (self.tweetList) {
         parameters = @{@"max_id":[self.tweetList getMaxId]};
     }
+    [self fetchFromTwitterClientWithParameters:parameters];
     
-    [[TwitterClient instance] homeTimelineWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"HomeViewController:viewDidLoad got timeline");// %@",responseObject);
-        
-        TweetList *tweetList = [[TweetList alloc] initWithDictionary:responseObject];
-        if (!self.tweetList) {
-            self.tweetList = tweetList;
-        } else {
-            [self.tweetList appendWithTweetList:tweetList];
-        }
-        self.fetchMoreTweetsPastRow = [self.tweetList count]-3;
-        NSLog(@"Will fetch more tweets past row %d",self.fetchMoreTweetsPastRow);
-        
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
-    }];
+    
+}
+
+- (void)fetchFromTwitterClientWithParameters:(NSDictionary *)parameters {
+    if (self.feed == FT_HOME_TIMELINE) {
+        [[TwitterClient instance] homeTimelineWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"TweetListViewController:viewDidLoad got timeline");// %@",responseObject);
+            
+            [self processFeedResponse:responseObject prepend:NO];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"TweetListViewController:viewDidLoad could not get timeline %@",error);
+        }];
+    } else if (self.feed == FT_USER_MENTIONS) {
+        [[TwitterClient instance] mentionsWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"TweetListViewController:viewDidLoad got timeline");// %@",responseObject);
+            
+            [self processFeedResponse:responseObject prepend:NO];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"TweetListViewController:viewDidLoad could not get timeline %@",error);
+        }];
+    }
+}
+
+- (void)processFeedResponse:(id)responseObject prepend:(BOOL)prepend {
+    TweetList *tweetList = [[TweetList alloc] initWithDictionary:responseObject];
+    if (!self.tweetList) {
+        self.tweetList = tweetList;
+    } else if (prepend) {
+        [self.tweetList prependWithTweetList:tweetList];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        [self.tweetList appendWithTweetList:tweetList];
+    }
+    self.fetchMoreTweetsPastRow = [self.tweetList count]-3;
+    NSLog(@"Will fetch more tweets past row %d",self.fetchMoreTweetsPastRow);
+    
+    [self.tableView reloadData];
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
@@ -109,22 +137,7 @@
     // only bother fetching new list if new stuff has happened.
     if (newestId) {
         parameters = @{@"since_id":newestId};
-        [[TwitterClient instance] homeTimelineWithParameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSLog(@"HomeViewController:viewDidLoad got timeline since %@ -> %@",parameters,responseObject);
-            
-            TweetList *newTweets = [[TweetList alloc] initWithDictionary:responseObject];
-            
-            if ([newTweets count]>0) {
-                NSLog(@"Got %d new tweets...prepending to List",[newTweets count]);
-                // append to existing tweetList
-                [self.tweetList prependWithTweetList:newTweets];
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-            }
- 
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"HomeViewController:viewDidLoad could not get timeline %@",error);
-        }];
+        [self fetchFromTwitterClientWithParameters:parameters];
     }
 }
 

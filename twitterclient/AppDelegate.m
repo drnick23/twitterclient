@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import "HomeViewController.h"
+#import "TweetListViewController.h"
 #import "MenuViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
@@ -40,7 +40,8 @@
 
 @property (nonatomic,strong) UINavigationController *navigationController;
 @property (nonatomic,strong) LoginViewController *loginViewController;
-@property (nonatomic,strong) HomeViewController *homeViewController;
+@property (nonatomic,strong) TweetListViewController *homeViewController;
+@property (nonatomic,strong) TweetListViewController *mentionsViewController;
 @property (nonatomic,strong) MenuViewController *menuViewController;
 
 @end
@@ -87,19 +88,28 @@
     else {
         NSLog(@"setting to homeViewController");
         if (!self.homeViewController) {
-            self.homeViewController = [[HomeViewController alloc] init];
+            self.homeViewController = [[TweetListViewController alloc] init];
+            self.homeViewController.feed = FT_HOME_TIMELINE;
         }
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
+        UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
+        
+        if (!self.mentionsViewController) {
+            self.mentionsViewController = [[TweetListViewController alloc] init];
+            self.mentionsViewController.feed = FT_USER_MENTIONS;
+        }
+        UINavigationController *mentionsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mentionsViewController];
+        
         
         if (!self.menuViewController) {
             self.menuViewController = [[MenuViewController alloc] init];
         }
         
         UITabBarController *tabBarController = [[UITabBarController alloc] init];
-        tabBarController.viewControllers = @[self.menuViewController,navigationController];
+        tabBarController.viewControllers = @[self.menuViewController,homeNavigationController,mentionsNavigationController];
         
         self.menuViewController.tabBarItem.title = @"Menu";
-        navigationController.tabBarItem.title = @"Home";
+        homeNavigationController.tabBarItem.title = @"Home";
+        mentionsNavigationController.tabBarItem.title = @"Mentions";
         
         self.window.rootViewController = tabBarController;
     }
