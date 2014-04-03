@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "HomeViewController.h"
+#import "MenuViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
 
@@ -40,6 +41,7 @@
 @property (nonatomic,strong) UINavigationController *navigationController;
 @property (nonatomic,strong) LoginViewController *loginViewController;
 @property (nonatomic,strong) HomeViewController *homeViewController;
+@property (nonatomic,strong) MenuViewController *menuViewController;
 
 @end
 
@@ -88,7 +90,18 @@
             self.homeViewController = [[HomeViewController alloc] init];
         }
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
-        self.window.rootViewController = navigationController;
+        
+        if (!self.menuViewController) {
+            self.menuViewController = [[MenuViewController alloc] init];
+        }
+        
+        UITabBarController *tabBarController = [[UITabBarController alloc] init];
+        tabBarController.viewControllers = @[self.menuViewController,navigationController];
+        
+        self.menuViewController.tabBarItem.title = @"Menu";
+        navigationController.tabBarItem.title = @"Home";
+        
+        self.window.rootViewController = tabBarController;
     }
 }
 
