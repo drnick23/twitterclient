@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "TweetListViewController.h"
 #import "MenuViewController.h"
+#import "HamburgerContainerViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
 
@@ -72,6 +73,7 @@
 
 - (void) routeUserFlow {
     NSLog(@"routeUserFlow");
+    
     User *user = [User currentUser];
  
     NSLog(@"routeUserFlow: Current user %@",user.description);
@@ -97,13 +99,20 @@
             self.mentionsViewController = [[TweetListViewController alloc] init];
             self.mentionsViewController.feed = FT_USER_MENTIONS;
         }
-        UINavigationController *mentionsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mentionsViewController];
+        //UINavigationController *mentionsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mentionsViewController];
         
         
         if (!self.menuViewController) {
             self.menuViewController = [[MenuViewController alloc] init];
         }
         
+        HamburgerContainerViewController *hamburgerContainerViewController = [[HamburgerContainerViewController alloc] init];
+        hamburgerContainerViewController.menuViewController = self.menuViewController;
+        hamburgerContainerViewController.contentViewController = homeNavigationController;
+        
+        self.window.rootViewController = hamburgerContainerViewController;
+        
+        /*
         UITabBarController *tabBarController = [[UITabBarController alloc] init];
         tabBarController.viewControllers = @[self.menuViewController,homeNavigationController,mentionsNavigationController];
         
@@ -111,7 +120,7 @@
         homeNavigationController.tabBarItem.title = @"Home";
         mentionsNavigationController.tabBarItem.title = @"Mentions";
         
-        self.window.rootViewController = tabBarController;
+        self.window.rootViewController = tabBarController;*/
     }
 }
 

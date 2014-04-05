@@ -15,6 +15,8 @@
 		015DA9B418EDC1C200E90BB9 /* MenuLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015DA9B218EDC1C200E90BB9 /* MenuLinkTableViewCell.xib */; };
 		015DA9B818EDC92200E90BB9 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DA9B618EDC92200E90BB9 /* ProfileViewController.m */; };
 		015DA9B918EDC92200E90BB9 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015DA9B718EDC92200E90BB9 /* ProfileViewController.xib */; };
+		015DA9C218F04EAB00E90BB9 /* HamburgerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DA9C018F04EAB00E90BB9 /* HamburgerContainerViewController.m */; };
+		015DA9C318F04EAB00E90BB9 /* HamburgerContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015DA9C118F04EAB00E90BB9 /* HamburgerContainerViewController.xib */; };
 		0197C0A118E48EE200434592 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0197C0A018E48EE200434592 /* Foundation.framework */; };
 		0197C0A318E48EE200434592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0197C0A218E48EE200434592 /* CoreGraphics.framework */; };
 		0197C0A518E48EE200434592 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0197C0A418E48EE200434592 /* UIKit.framework */; };
@@ -67,6 +69,9 @@
 		015DA9B518EDC92200E90BB9 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Controllers/ProfileViewController.h; sourceTree = "<group>"; };
 		015DA9B618EDC92200E90BB9 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Controllers/ProfileViewController.m; sourceTree = "<group>"; };
 		015DA9B718EDC92200E90BB9 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = Controllers/ProfileViewController.xib; sourceTree = "<group>"; };
+		015DA9BF18F04EAB00E90BB9 /* HamburgerContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HamburgerContainerViewController.h; path = Controllers/HamburgerContainerViewController.h; sourceTree = "<group>"; };
+		015DA9C018F04EAB00E90BB9 /* HamburgerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HamburgerContainerViewController.m; path = Controllers/HamburgerContainerViewController.m; sourceTree = "<group>"; };
+		015DA9C118F04EAB00E90BB9 /* HamburgerContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HamburgerContainerViewController.xib; path = Controllers/HamburgerContainerViewController.xib; sourceTree = "<group>"; };
 		0197C09D18E48EE200434592 /* twitterclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twitterclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0197C0A018E48EE200434592 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0197C0A218E48EE200434592 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -254,6 +259,9 @@
 				015DA9B518EDC92200E90BB9 /* ProfileViewController.h */,
 				015DA9B618EDC92200E90BB9 /* ProfileViewController.m */,
 				015DA9B718EDC92200E90BB9 /* ProfileViewController.xib */,
+				015DA9BF18F04EAB00E90BB9 /* HamburgerContainerViewController.h */,
+				015DA9C018F04EAB00E90BB9 /* HamburgerContainerViewController.m */,
+				015DA9C118F04EAB00E90BB9 /* HamburgerContainerViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -367,6 +375,7 @@
 				015DA9B918EDC92200E90BB9 /* ProfileViewController.xib in Resources */,
 				015DA9A918EDB97800E90BB9 /* MenuViewController.xib in Resources */,
 				0197C0B318E48EE200434592 /* Images.xcassets in Resources */,
+				015DA9C318F04EAB00E90BB9 /* HamburgerContainerViewController.xib in Resources */,
 				0197C10C18E6F6DE00434592 /* TweetComposeViewController.xib in Resources */,
 				0197C0D718E4941500434592 /* LoginViewController.xib in Resources */,
 				0197C0FD18E5F4F600434592 /* TweetHomeViewCell.xib in Resources */,
@@ -426,6 +435,7 @@
 				0197C0EC18E5BE0C00434592 /* User.m in Sources */,
 				0197C0B118E48EE200434592 /* AppDelegate.m in Sources */,
 				015DA9B818EDC92200E90BB9 /* ProfileViewController.m in Sources */,
+				015DA9C218F04EAB00E90BB9 /* HamburgerContainerViewController.m in Sources */,
 				0197C0FC18E5F4F600434592 /* TweetHomeViewCell.m in Sources */,
 				0197C0F218E5EB6C00434592 /* TweetList.m in Sources */,
 				015DA9B318EDC1C200E90BB9 /* MenuLinkTableViewCell.m in Sources */,
