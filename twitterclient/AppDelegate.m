@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "TweetListViewController.h"
 #import "MenuViewController.h"
+#import "ProfileViewController.h"
 #import "HamburgerContainerViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
@@ -44,6 +45,7 @@
 @property (nonatomic,strong) TweetListViewController *homeViewController;
 @property (nonatomic,strong) TweetListViewController *mentionsViewController;
 @property (nonatomic,strong) MenuViewController *menuViewController;
+@property (nonatomic,strong) ProfileViewController *profileViewController;
 
 @end
 
@@ -89,23 +91,28 @@
     // if user is logged in, show the home view
     else {
         NSLog(@"setting to homeViewController");
-        if (!self.homeViewController) {
+        //if (!self.homeViewController) {
             self.homeViewController = [[TweetListViewController alloc] init];
             self.homeViewController.feed = FT_HOME_TIMELINE;
-        }
+        //}
         UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
         
-        if (!self.mentionsViewController) {
+        //if (!self.mentionsViewController) {
             self.mentionsViewController = [[TweetListViewController alloc] init];
             self.mentionsViewController.feed = FT_USER_MENTIONS;
-        }
+        //}
         UINavigationController *mentionsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mentionsViewController];
         
+        //if (!self.profileViewController) {
+            self.profileViewController = [[ProfileViewController alloc] init];
+        //}
+        self.profileViewController.user = [User currentUser];
         
-        if (!self.menuViewController) {
+        
+        //if (!self.menuViewController) {
             self.menuViewController = [[MenuViewController alloc] init];
             
-            [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_PROFILE)}];
+            [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_PROFILE), @"controller":self.profileViewController}];
             [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_LINK),@"name":@"Home Timeline", @"icon":@"TwitterIcon", @"controller":homeNavigationController}];
             [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_LINK),@"name":@"@mentions",@"icon":@"TwitterIcon",@"controller":mentionsNavigationController}];
             [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_ACTION),@"name":@"Log out",@"icon":@"TwitterIcon"}];
@@ -122,7 +129,7 @@
                  }
              }];
             
-        }
+        //}
         
         HamburgerContainerViewController *hamburgerContainerViewController = [[HamburgerContainerViewController alloc] init];
         hamburgerContainerViewController.menuViewController = self.menuViewController;

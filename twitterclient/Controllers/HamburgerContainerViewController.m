@@ -67,6 +67,7 @@
         [self.contentView addSubview:viewController.view];
         
         viewController.view.frame = self.contentView.frame;
+        [self.view bringSubviewToFront:self.contentView];
         
     }
     [self.view bringSubviewToFront:self.menuView];
