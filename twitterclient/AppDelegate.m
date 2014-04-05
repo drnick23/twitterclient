@@ -110,6 +110,18 @@
             [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_LINK),@"name":@"@mentions",@"icon":@"TwitterIcon",@"controller":mentionsNavigationController}];
             [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_ACTION),@"name":@"Log out",@"icon":@"TwitterIcon"}];
             
+            [[NSNotificationCenter defaultCenter]
+             addObserverForName:MenuViewControllerDidSelectActionNotification
+             object:nil
+             queue:nil
+             usingBlock:^(NSNotification *notification) {
+                 NSLog(@"AppDelegate received notification: %@",notification.userInfo[@"name"]);
+                 if ([notification.userInfo[@"name"] isEqualToString:@"Log out"]) {
+                     NSLog(@"Should log out user now");
+                     [User setCurrentUser:nil];
+                 }
+             }];
+            
         }
         
         HamburgerContainerViewController *hamburgerContainerViewController = [[HamburgerContainerViewController alloc] init];

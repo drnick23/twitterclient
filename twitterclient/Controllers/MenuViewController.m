@@ -25,6 +25,8 @@
 @implementation MenuViewController
 
 NSString *const MenuViewControllerDidSelectControllerNotification = @"MenuViewControllerDidSelectControllerNotification";
+NSString *const MenuViewControllerDidSelectActionNotification = @"MenuViewControllerDidSelectActionNotification";
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,6 +100,11 @@ NSString *const MenuViewControllerDidSelectControllerNotification = @"MenuViewCo
     if (item[@"controller"]) {
         NSLog(@"Posting notification for selected controller for %@",item[@"name"]);
         [[NSNotificationCenter defaultCenter] postNotificationName:MenuViewControllerDidSelectControllerNotification object:self userInfo:item];
+        
+    }
+    if ([item[@"type"] isEqualToValue:@(MT_ACTION)]) {
+        NSLog(@"Posting notification for action for %@",item[@"name"]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:MenuViewControllerDidSelectActionNotification object:self userInfo:item];
         
     }
 }

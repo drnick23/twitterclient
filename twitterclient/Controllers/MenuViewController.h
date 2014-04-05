@@ -14,6 +14,9 @@
 // subscribe to this NSNotification whenever a menu item gets selected that has a controller
 extern NSString *const MenuViewControllerDidSelectControllerNotification;
 
+// subscribe to this to receive action events
+extern NSString *const MenuViewControllerDidSelectActionNotification;
+
 enum MenuTypes {
     MT_PROFILE,
     MT_LINK,

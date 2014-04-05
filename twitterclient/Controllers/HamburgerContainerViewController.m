@@ -41,6 +41,18 @@
              }];
          }
          ];
+        // Custom initialization
+        [[NSNotificationCenter defaultCenter]
+         addObserverForName:MenuViewControllerDidSelectActionNotification
+         object:nil
+         queue:nil
+         usingBlock:^(NSNotification *notification) {
+             NSLog(@"Hamburger Container received action: %@",notification.userInfo);
+             [UIView animateWithDuration:0.5 animations:^{
+                 [self setMenuWithOpen:NO];
+             }];
+         }
+         ];
     }
     return self;
 }
