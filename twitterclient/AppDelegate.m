@@ -99,11 +99,17 @@
             self.mentionsViewController = [[TweetListViewController alloc] init];
             self.mentionsViewController.feed = FT_USER_MENTIONS;
         }
-        //UINavigationController *mentionsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mentionsViewController];
+        UINavigationController *mentionsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mentionsViewController];
         
         
         if (!self.menuViewController) {
             self.menuViewController = [[MenuViewController alloc] init];
+            
+            [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_PROFILE)}];
+            [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_LINK),@"name":@"Home Timeline", @"icon":@"TwitterIcon", @"controller":homeNavigationController}];
+            [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_LINK),@"name":@"@mentions",@"icon":@"TwitterIcon",@"controller":mentionsNavigationController}];
+            [self.menuViewController addMenuItemWithParameters:@{@"type":@(MT_ACTION),@"name":@"Log out",@"icon":@"TwitterIcon"}];
+            
         }
         
         HamburgerContainerViewController *hamburgerContainerViewController = [[HamburgerContainerViewController alloc] init];
@@ -112,15 +118,6 @@
         
         self.window.rootViewController = hamburgerContainerViewController;
         
-        /*
-        UITabBarController *tabBarController = [[UITabBarController alloc] init];
-        tabBarController.viewControllers = @[self.menuViewController,homeNavigationController,mentionsNavigationController];
-        
-        self.menuViewController.tabBarItem.title = @"Menu";
-        homeNavigationController.tabBarItem.title = @"Home";
-        mentionsNavigationController.tabBarItem.title = @"Mentions";
-        
-        self.window.rootViewController = tabBarController;*/
     }
 }
 

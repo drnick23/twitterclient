@@ -9,23 +9,22 @@
 #import "MenuViewController.h"
 #import "MenuProfileTableViewCell.h"
 #import "MenuLinkTableViewCell.h"
+
 #import "User.h"
 
-enum MenuTypes {
-    MT_PROFILE,
-    MT_LINK
-};
-typedef enum MenuTypes MenuTypes;
+
 
 @interface MenuViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic,strong) NSArray *menu;
+@property (nonatomic,strong) NSMutableArray *menu;
 
 
 @end
 
 @implementation MenuViewController
+
+NSString *const MenuViewControllerDidSelectControllerNotification = @"MenuViewControllerDidSelectControllerNotification";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,17 +35,19 @@ typedef enum MenuTypes MenuTypes;
     return self;
 }
 
+- (NSMutableArray *) menu {
+    if (!_menu) _menu = [@[] mutableCopy];
+    return _menu;
+}
+
+- (void)addMenuItemWithParameters:(NSDictionary *)parameters {
+    [self.menu addObject:parameters];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    self.menu = @[
-                  @{@"type":@(MT_PROFILE)},
-                  @{@"type":@(MT_LINK),@"name":@"Home Timeline", @"icon":@"TwitterIcon"},
-                  @{@"type":@(MT_LINK),@"name":@"@mentions",@"icon":@"TwitterIcon"},
-                  @{@"type":@(MT_LINK),@"name":@"Log out",@"icon":@"TwitterIcon"}
-                ];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -56,8 +57,6 @@ typedef enum MenuTypes MenuTypes;
     [self.tableView registerNib:menuProfileViewCellNib forCellReuseIdentifier:@"MenuProfileTableViewCell"];
     UINib *menuLinkViewCellNib = [UINib nibWithNibName:@"MenuLinkTableViewCell" bundle:nil];
     [self.tableView registerNib:menuLinkViewCellNib forCellReuseIdentifier:@"MenuLinkTableViewCell"];
-
-    
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -87,6 +86,19 @@ typedef enum MenuTypes MenuTypes;
         cell.name = item[@"name"];
         cell.icon = item[@"icon"];
         return cell;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *item = self.menu[indexPath.row];
+    NSLog(@"Selected Cell at %d %@",indexPath.row,item);
+    if ([item[@"type"] isEqualToValue:@(MT_PROFILE)]) {
+        NSLog(@"Selected profile");
+    }
+    if (item[@"controller"]) {
+        NSLog(@"Posting notification for selected controller for %@",item[@"name"]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:MenuViewControllerDidSelectControllerNotification object:self userInfo:item];
+        
     }
 }
 

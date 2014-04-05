@@ -7,6 +7,7 @@
 //
 
 #import "HamburgerContainerViewController.h"
+#import "MenuViewController.h"
 
 @interface HamburgerContainerViewController ()
 
@@ -28,8 +29,35 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [[NSNotificationCenter defaultCenter]
+         addObserverForName:MenuViewControllerDidSelectControllerNotification
+         object:nil
+         queue:nil
+         usingBlock:^(NSNotification *notification) {
+             NSLog(@"Hamburger Container received notification: %@",notification.userInfo[@"controller"]);
+             [self switchContentWithViewController:notification.userInfo[@"controller"]];
+             [UIView animateWithDuration:0.5 animations:^{
+                 [self setMenuWithOpen:NO];
+             }];
+         }
+         ];
     }
     return self;
+}
+
+- (void)switchContentWithViewController:(UIViewController *)viewController {
+    NSLog(@"switching content view to new view controller %@",viewController);
+    if (self.contentViewController) {
+        [self.contentViewController removeFromParentViewController];
+        [self.contentViewController.view removeFromSuperview];
+        
+        [self addChildViewController:viewController];
+        [self.contentView addSubview:viewController.view];
+        
+        viewController.view.frame = self.contentView.frame;
+        
+    }
+    [self.view bringSubviewToFront:self.menuView];
 }
 
 - (void)viewDidLoad
