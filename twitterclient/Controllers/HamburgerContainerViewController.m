@@ -146,15 +146,30 @@
         CGFloat travelled = MAX(-self.menuView.frame.size.width,MIN(self.menuView.frame.size.width,point.x - self.startPanPoint.x));
 
         self.menuView.transform = CGAffineTransformTranslate(self.menuOriginTransform, travelled, 0);
+        
         CGFloat scale;
         if (self.menuOpen) {
             scale = 0.9 + 0.1 * ABS(travelled/320.0);
         } else {
             scale = 1.0 - 0.1 * ABS(travelled/320.0);
         }
+        
+        CGFloat dest_perc = 0.0 + ABS(travelled/320.0);
+        
         NSLog(@"travelled: %f scale: %f",travelled,scale);
         self.contentView.transform = CGAffineTransformMakeScale(scale,scale);
         self.contentView.alpha = 1 - 5*(1 - scale);
+        
+        if (self.menuOpen==NO) {
+            CALayer *layer = self.contentView.layer;
+            CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+            rotationAndPerspectiveTransform = CATransform3DTranslate(rotationAndPerspectiveTransform, 140*dest_perc, 0, -180*dest_perc);
+            rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -dest_perc * 45.0f * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+            layer.transform = rotationAndPerspectiveTransform;
+        }
+
+        
         //self.menuView.transform = CGAffineTransformMakeTranslation(point.x - self.startPanPoint.x, 0);
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
