@@ -83,7 +83,11 @@ static User *currentUser = nil;
                                @"id":self.userId,
                                @"name":self.name,
                                @"screen_name":self.screenName,
-                               @"profile_image_url":[self.profileImageURL absoluteString]
+                               @"profile_image_url":[self.profileImageURL absoluteString],
+                               @"followers_count":self.followersCount,
+                               @"statuses_count":self.statusesCount,
+                               @"friends_count":self.friendsCount,
+                               @"profile_background_image_url":[self.profileBackgroundImageURL absoluteString]
                                };
     NSLog(@"User:persistUserSession adding user TO persistent storage %@",saveUser);
     
