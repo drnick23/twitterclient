@@ -12,5 +12,6 @@
 
 @property (strong,nonatomic) UIViewController *menuViewController;
 @property (strong,nonatomic) UIViewController *contentViewController;
+@property (strong,nonatomic) NSArray *contentViewControllers;
 
 @end

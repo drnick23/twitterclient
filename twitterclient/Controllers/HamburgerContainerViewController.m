@@ -66,7 +66,7 @@
         [self addChildViewController:viewController];
         [self.contentView addSubview:viewController.view];
         
-        viewController.view.frame = self.contentView.frame;
+        viewController.view.frame = self.contentView.superview.frame;
         [self.view bringSubviewToFront:self.contentView];
         
     }
@@ -76,14 +76,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor = [UIColor grayColor];
     
     if (self.contentViewController) {
         
+        self.contentViewController.view.frame = self.contentView.frame;
+
         [self addChildViewController:self.contentViewController];
         [self.contentView addSubview:self.contentViewController.view];
-        
-        self.contentViewController.view.frame = self.contentView.frame;
+        self.contentView.transform = CGAffineTransformIdentity;
+        self.contentView.backgroundColor = [UIColor redColor];
     } else {
         NSLog(@"warning: add contentViewController");
         self.contentView.backgroundColor = [UIColor greenColor];
@@ -107,10 +112,15 @@
     self.menuOpen = open;
     if (open) {
         self.menuOriginTransform = CGAffineTransformIdentity;
+        self.contentView.transform = CGAffineTransformMakeScale(0.9,0.9);
+        self.contentView.alpha = 0.45;
     } else {
         self.menuOriginTransform = CGAffineTransformMakeTranslation(-menuFrame.size.width+0,0);
+        self.contentView.transform = CGAffineTransformIdentity;
+        self.contentView.alpha = 1.0;
     }
     self.menuView.transform = self.menuOriginTransform;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,7 +143,18 @@
     }
     else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         //NSLog(@"changed transform point: %f distance:%f",point.x, point.x - self.startPanPoint.x);
-        self.menuView.transform = CGAffineTransformTranslate(self.menuOriginTransform, point.x - self.startPanPoint.x, 0);
+        CGFloat travelled = MAX(-self.menuView.frame.size.width,MIN(self.menuView.frame.size.width,point.x - self.startPanPoint.x));
+
+        self.menuView.transform = CGAffineTransformTranslate(self.menuOriginTransform, travelled, 0);
+        CGFloat scale;
+        if (self.menuOpen) {
+            scale = 0.9 + 0.1 * ABS(travelled/320.0);
+        } else {
+            scale = 1.0 - 0.1 * ABS(travelled/320.0);
+        }
+        NSLog(@"travelled: %f scale: %f",travelled,scale);
+        self.contentView.transform = CGAffineTransformMakeScale(scale,scale);
+        self.contentView.alpha = 1 - 5*(1 - scale);
         //self.menuView.transform = CGAffineTransformMakeTranslation(point.x - self.startPanPoint.x, 0);
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
