@@ -77,8 +77,6 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view from its nib.
-    
     self.view.backgroundColor = [UIColor grayColor];
     
     if (self.contentViewController) {
@@ -90,7 +88,7 @@
         self.contentView.transform = CGAffineTransformIdentity;
         self.contentView.backgroundColor = [UIColor redColor];
     } else {
-        NSLog(@"warning: add contentViewController");
+        NSLog(@"BUG WARNING: should add contentViewController");
         self.contentView.backgroundColor = [UIColor greenColor];
     }
     
@@ -129,16 +127,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
-    //CGPoint point = [tapGestureRecognizer locationInView:self.view];
-}
-
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     
     CGPoint point = [panGestureRecognizer locationInView:self.view];
     
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"Start point: %f",point.x);
+        //NSLog(@"Start point: %f",point.x);
         self.startPanPoint = point;
     }
     else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
@@ -160,7 +154,7 @@
         
         CGFloat dest_perc = 0.0 + ABS(travelled/320.0);
         
-        NSLog(@"travelled: %f scale: %f",travelled,scale);
+        //NSLog(@"travelled: %f scale: %f",travelled,scale);
         
         self.menuView.transform = CGAffineTransformTranslate(self.menuOriginTransform, travelled, 0);
         self.contentView.transform = CGAffineTransformMakeScale(scale,scale);
@@ -182,8 +176,8 @@
         
         // todo: upgrade to ui view dynamics
         // http://www.teehanlax.com/blog/introduction-to-uikit-dynamics/
-        [UIView animateWithDuration:0.5 animations:^{
-            NSLog(@"Do anaimtiong");
+        [UIView animateWithDuration:0.4 animations:^{
+            //NSLog(@"Do anaimtiong");
             if (velocity.x <= 0) {
                 [self setMenuWithOpen:NO];
             } else {
