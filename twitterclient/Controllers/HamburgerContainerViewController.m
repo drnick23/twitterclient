@@ -145,18 +145,24 @@
         //NSLog(@"changed transform point: %f distance:%f",point.x, point.x - self.startPanPoint.x);
         CGFloat travelled = MAX(-self.menuView.frame.size.width,MIN(self.menuView.frame.size.width,point.x - self.startPanPoint.x));
 
-        self.menuView.transform = CGAffineTransformTranslate(self.menuOriginTransform, travelled, 0);
-        
         CGFloat scale;
         if (self.menuOpen) {
+            if (travelled > 0) {
+                travelled = 0;
+            }
             scale = 0.9 + 0.1 * ABS(travelled/320.0);
         } else {
+            if (travelled < 0) {
+                travelled = 0;
+            }
             scale = 1.0 - 0.1 * ABS(travelled/320.0);
         }
         
         CGFloat dest_perc = 0.0 + ABS(travelled/320.0);
         
         NSLog(@"travelled: %f scale: %f",travelled,scale);
+        
+        self.menuView.transform = CGAffineTransformTranslate(self.menuOriginTransform, travelled, 0);
         self.contentView.transform = CGAffineTransformMakeScale(scale,scale);
         self.contentView.alpha = 1 - 5*(1 - scale);
         
